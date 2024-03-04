@@ -8,7 +8,7 @@ import AppNavbar from "./components/AppNavbar";
 import Error from './pages/Error';
 import Home from "./pages/Home";
 import Login from './pages/Login';
-// import Logout from "./pages/Logout";
+import Logout from "./pages/Logout";
 // import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import Shop from "./pages/Shop";
@@ -17,26 +17,16 @@ import './App.css';
 
 /* ===== App ===== */
 export default function App() {
-  // State variables to manage user data and loading state
-  const [user, setUser] = useState(null); // Current user data
-  const [loading, setLoading] = useState(true); // Loading state
+  const [user, setUser] = useState(null); 
 
-  // Function to unset user data and clear all data from localStorage
   const unsetUser = () => {
     localStorage.clear();
-    setUser(null); // Reset user data
+    setUser(null);
   }
 
   useEffect(() => {
-    // Function to fetch user data
     const fetchData = async () => {
       const token = localStorage.getItem("token");
-
-      // Check if token exists
-      if (!token) {
-        setLoading(false); // No token, loading complete
-        return; // Exit early
-      }
 
       try {
         const response = await fetch(`http://localhost:4003/b3/users/details`, {
@@ -44,10 +34,6 @@ export default function App() {
             Authorization: `Bearer ${token}`
           }
         });
-
-        // if (!response.ok) {
-        //   throw new Error("Failed to fetch user data");
-        // }
 
         const data = await response.json();
 
@@ -62,31 +48,22 @@ export default function App() {
 
       } catch (err) {
         console.error(err);
-      } finally {
-        setLoading(false); // Loading complete
       }
     };
 
     fetchData();
   }, []);
-
-  // If loading, display loading indicator
-  if (loading) {
-    return (
-      <div>Loading...</div> 
-    );
-  }
   
   // Render the main application when loading is complete
   return (
     <UserProvider value={{ user, setUser, unsetUser }}>
       <Router>
         <AppNavbar />
-          <div class="max-w-full">
+          <div className="max-w-full">
             <Routes>
               <Route path="/" element={<Home />}/>
               <Route path="/login" element={<Login />}/>
-              {/* <Route path="/logout" element={<Logout />}/> */}
+              <Route path="/logout" element={<Logout />}/>
               {/* <Route path="/profile" element={<Profile />}/> */}
               <Route path="/register" element={<Register />}/>
               <Route path="/shop" element={<Shop />}/>
