@@ -106,18 +106,21 @@ export default function AppNavbar() {
                                 (user && user.id !== null) ?
                                 <>
                                     <li>
-                                        <a className="justify-between">
+                                        <Link 
+                                            to="/settings"
+                                            className="justify-between"
+                                        >
                                             Profile
                                             {/* <span className="badge">New</span> */}
-                                        </a>
+                                        </Link>
                                     </li>
-                                    <li><a>Settings</a></li>
-                                    <li><a>Logout</a></li>
+                                    <li><Link to="/settings">Settings</Link></li>
+                                    <li><Link to="/logout">Logout</Link></li>
                                 </>
                                 :
                                 <>
-                                    <li><a>Sign In</a></li>
-                                    <li><a>Sign Up</a></li>
+                                    <li><Link to="/login">Sign In</Link></li>
+                                    <li><Link to="/register">Sign Up</Link></li>
                                 </>
                             }
                         </ul>

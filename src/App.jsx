@@ -5,13 +5,13 @@ import { UserProvider } from "./UserContext";
 /* ===== Components ===== */
 import AppNavbar from "./components/AppNavbar";
 /* ===== Pages ===== */
-// import Error from './pages/Error';
+import Error from './pages/Error';
 import Home from "./pages/Home";
-// import Login from './pages/Login';
+import Login from './pages/Login';
 // import Logout from "./pages/Logout";
 // import Profile from "./pages/Profile";
-// import Register from "./pages/Register";
-// import Shop from "./pages/Shop";
+import Register from "./pages/Register";
+import Shop from "./pages/Shop";
 /* ===== Styling ===== */
 import './App.css';
 
@@ -39,15 +39,15 @@ export default function App() {
       }
 
       try {
-        const response = await fetch(`http://localhost:4000/api/v1/users/profile`, {
+        const response = await fetch(`http://localhost:4003/b3/users/details`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch user data");
-        }
+        // if (!response.ok) {
+        //   throw new Error("Failed to fetch user data");
+        // }
 
         const data = await response.json();
 
@@ -82,15 +82,17 @@ export default function App() {
     <UserProvider value={{ user, setUser, unsetUser }}>
       <Router>
         <AppNavbar />
-          <Routes>
-            <Route path="/" element={<Home />}/>
-            {/* <Route path="/login" element={<Login />}/>
-            <Route path="/logout" element={<Logout />}/>
-            <Route path="/profile" element={<Profile />}/>
-            <Route path="/register" element={<Register />}/>
-            <Route path="/shop" element={<Shop />}/>
-            <Route path="/*" element={<Error />} /> */}
-          </Routes>
+          <div class="max-w-full">
+            <Routes>
+              <Route path="/" element={<Home />}/>
+              <Route path="/login" element={<Login />}/>
+              {/* <Route path="/logout" element={<Logout />}/> */}
+              {/* <Route path="/profile" element={<Profile />}/> */}
+              <Route path="/register" element={<Register />}/>
+              <Route path="/shop" element={<Shop />}/>
+              <Route path="/*" element={<Error />} />
+            </Routes>
+          </div>
       </Router>
     </UserProvider>
   );
