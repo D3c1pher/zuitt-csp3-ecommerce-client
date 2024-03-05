@@ -11,7 +11,7 @@ import Login from './pages/Login';
 import Logout from "./pages/Logout";
 // import Profile from "./pages/Profile";
 import Register from "./pages/Register";
-import Shop from "./pages/Shop";
+import Products from "./pages/Products";
 /* ===== Styling ===== */
 import './App.css';
 
@@ -66,7 +66,7 @@ export default function App() {
               <Route path="/logout" element={<Logout />}/>
               {/* <Route path="/profile" element={<Profile />}/> */}
               <Route path="/register" element={<Register />}/>
-              <Route path="/shop" element={<Shop />}/>
+              <Route path="/shop" element={<Products />}/>
               <Route path="/*" element={<Error />} />
             </Routes>
           </div>
