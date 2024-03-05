@@ -43,7 +43,7 @@ export default function Shop({productsData}) {
 		<>
             <div className="bg-base-100 max-w-full">
                 
-                <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+                <div className="mx-auto max-w-2xl px-4 py-5 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
 
                     <h2 className="text-4xl font-bold tracking-tight text-primary text-center">SHOP</h2>
 
