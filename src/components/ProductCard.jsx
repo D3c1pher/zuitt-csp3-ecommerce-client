@@ -2,22 +2,9 @@ import { Link } from "react-router-dom";
 import ProductImg from "../assets/product-placeholder.webp";
 
 export default function ProductCard({productsProp}) {
-
 	const { _id, name, description, price } = productsProp;
 
     return (
-        // <Card>
-        //     <Card.Body>
-        //         <Card.Title>{ name }</Card.Title>
-        //         <Card.Subtitle>Description:</Card.Subtitle>
-        //         <Card.Text>{ description }</Card.Text>
-        //         <Card.Subtitle>Price:</Card.Subtitle>
-        //         <Card.Text>PhP { price }</Card.Text>
-        //         {/*<Card.Text>Enrollees: { count }</Card.Text>*/}
-        //         <Link className="btn btn-primary" to={`/courses/${_id}`}>Details</Link>
-        //     </Card.Body>
-        // </Card>
-
         <div className="card bg-white shadow-xl group relative overflow-hidden rounded-xl">
             
             <figure><img src={ProductImg} alt="Product Image" className="h-full w-full object-contain object-center group-hover:opacity-75 p-5" /></figure>
@@ -31,6 +18,7 @@ export default function ProductCard({productsProp}) {
                     <button className="btn btn-outline btn-primary rounded-xl">Add to Cart</button>
                 </div>
             </div>
+
         </div>
-	)
+	);
 }

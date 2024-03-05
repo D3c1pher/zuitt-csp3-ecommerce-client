@@ -105,8 +105,10 @@ export default function Login() {
         setIsActive(emailOrUsername !== '' && password !== '');
     }, [emailOrUsername, password]);
 
-    if (user && user.id !== null) {
-        return <Navigate to="/" />;
+    if (user && user.id !== null && !user.isAdmin) {
+        return <Navigate to="/shop" />;
+    } else if (user && user.id !== null && user.isAdmin) {
+        return <Navigate to="/dashboard" />;
     } else {
         return (
             <>

@@ -56,8 +56,8 @@ export default function Register() {
 
     return(
         <>
-                <div className="flex min-h-full flex-1 flex-col justify-center px-4 sm:px-2 py-12 lg:px-4 m-0 bg-base-300">
-                    <div className="sm:mx-auto sm:w-full sm:max-w-4xl bg-white rounded-lg sm:shadow-md p-10">
+                <div className="flex min-h-full flex-1 flex-col justify-center px-4 sm:px-2 py-12 lg:px-4 m-0 bg-base-200">
+                    <div className="sm:mx-auto sm:w-full sm:max-w-4xl bg-base-100 rounded-lg sm:shadow-md py-16 px-20">
     
                         {/* Company Logo */}
                         <img
@@ -65,11 +65,21 @@ export default function Register() {
                             src={LogoImgColor}
                             alt="Your Company"
                         />
-    
-                        {/* Header Text */}
-                        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                            Create your account
-                        </h2>
+
+                        <div className="mt-5 text-center">
+                            {/* Header Text */}
+                            <h2 className="text-2xl font-bold leading-9 tracking-tight text-primary">
+                                Create your account
+                            </h2>
+
+                            {/* Already have an account */}
+                            <p class="mt-2 text-sm">
+                                Already have an account?
+                                <a class="ml-1 text-secondary decoration-2 hover:underline font-medium" href="/login">
+                                    Sign in here
+                                </a>
+                            </p>
+                        </div>
     
                         {/* Register Form */}
                         <form className="form-control w-full max-w-8xl mt-10" onSubmit={registerUser}> 
@@ -83,7 +93,8 @@ export default function Register() {
                                     placeholder="First Name"
                                     required 
                                 />
-                            </label>     
+                            </label>  
+
                             <div className="flex text-error mt-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg>
                                 <span className="label-text text-error text-sm ml-1">Error Info</span> 
@@ -209,11 +220,6 @@ export default function Register() {
                                 <span className="label-text text-error text-sm ml-1">Error Info</span> 
                             </div>
                              
-
-                            
-
-
-
                             {/* Submit Button */}
                             <div>
                                 <button
@@ -224,17 +230,7 @@ export default function Register() {
                                 Sign up
                                 </button>
                             </div>
-
-                            {/* Sign Up Link */}
-                            <div>
-                                <p className="mt-10 text-center text-sm text-gray-500">
-                                Not a member?{' '}
-                                    <a href="/register" className="font-semibold leading-6 text-primary hover:text-primary/80">
-                                        Sign up and shop now
-                                    </a>
-                                </p>
-                            </div>
-
+ 
                         </form>
     
                     </div>    
