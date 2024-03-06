@@ -11,9 +11,10 @@ import Login from './pages/Login';
 import Logout from "./pages/Logout";
 // import Profile from "./pages/Profile";
 import Register from "./pages/Register";
-// import Products from "./pages/Products";
 import Shop from "./pages/Shop";
 import Dashboard from "./pages/Dashboard";
+import AddProduct from "./pages/AddProduct";
+import EditProduct from "./pages/EditProduct";
 /* ===== Styling ===== */
 import './App.css';
 
@@ -61,7 +62,7 @@ export default function App() {
     <UserProvider value={{ user, setUser, unsetUser }}>
       <Router>
         <AppNavbar />
-          <div className="max-w-full">
+          <div className="max-w-full pt-16">
             <Routes>
               <Route path="/" element={<Home />}/>
               <Route path="/login" element={<Login />}/>
@@ -71,6 +72,8 @@ export default function App() {
               {/* <Route path="/products" element={<Products />}/> */}
               <Route path="/shop" element={<Shop />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard/add-product" element={<AddProduct />} />
+              <Route path="/dashboard/edit-product/:productId" element={<EditProduct />} />
               <Route path="/*" element={<Error />} />
             </Routes>
           </div>

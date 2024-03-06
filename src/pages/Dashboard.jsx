@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react';
-// import ArchiveCourse from './ArchiveCourse';
-// import EditCourse from "./EditCourse";
+import {useState, useEffect, useContext} from 'react';
+import { Link, Navigate } from "react-router-dom";
+import ArchiveProduct from '../components/ArchiveProduct';
+import EditProduct from './EditProduct';
+import UserContext from '../UserContext';
 
 export default function Dashboard() {
+    const { user } = useContext(UserContext);
+
     const [selectedTab, setSelectedTab] = useState('products');
     const [products, setProducts] = useState([]);
 
@@ -10,31 +14,32 @@ export default function Dashboard() {
         setSelectedTab(tab);
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`http://localhost:4003/b3/products/all`, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch products');
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`http://localhost:4003/b3/products/all`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
+            });
 
-                const data = await response.json();
-
-                if (Array.isArray(data.products)) {
-                    setProducts(data.products);
-                } else {
-                    setProducts([]);
-                }
-
-            } catch (error) {
-                console.error('Error viewing products:', error);
+            if (!response.ok) {
+                throw new Error('Failed to fetch products');
             }
+
+            const data = await response.json();
+
+            if (Array.isArray(data.products)) {
+                setProducts(data.products);
+            } else {
+                setProducts([]);
+            }
+
+        } catch (error) {
+            console.error('Error viewing products:', error);
         }
+    }
+        
+    useEffect(() => {
         fetchData();
     }, []);
 
@@ -94,10 +99,12 @@ export default function Dashboard() {
                        <div className=" flex lg:ml-4 lg:mt-0 items-center justify-between mb-5">
                             <h2 className="text-2xl sm:text-3xl text-primary text-center font-bold flex-grow sm:ml-20">Product Dashboard</h2>
                             <span className="sm:block mr-5">
-                                <button type="button" className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                <Link
+                                    to="/dashboard/add-product"
+                                    className="btn inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                                     <svg className="-ml-0.5 sm:mr-1.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.695 14.763l-1.262 3.154a.5.5 0 00.65.65l3.155-1.262a4 4 0 001.343-.885L17.5 5.5a2.121 2.121 0 00-3-3L3.58 13.42a4 4 0 00-.885 1.343z" /></svg>
                                     <span className="hidden sm:block">Add Product</span>
-                                </button>
+                                </Link>
                             </span>
                         </div>
 
@@ -127,12 +134,18 @@ export default function Dashboard() {
 												{product.isActive ? "Available" : "Unavailable"}
 											</td>
 											<td>
-												Edit
-												{/* <EditCourse course={product._id} fetchData={fetchData}/> */}
+                                                {/* Link Button to edit-product */}
+                                                <Link to={`/dashboard/edit-product/${product._id}`} className="btn btn-primary hover:btn-secondary">
+                                                    <svg className="-ml-0.5 md:mr-1.5 h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.695 14.763l-1.262 3.154a.5.5 0 00.65.65l3.155-1.262a4 4 0 001.343-.885L17.5 5.5a2.121 2.121 0 00-3-3L3.58 13.42a4 4 0 00-.885 1.343z" /></svg>
+                                                    <span className="hidden md:block text-white">Edit</span>
+                                                </Link>
 											</td>
 											<td>
-												Archive
-												{/* <ArchiveCourse course={course._id} isActive={course.isActive} fetchData={fetchData}/> */}
+												<ArchiveProduct 
+                                                    product={product._id} 
+                                                    isActive={product.isActive} 
+                                                    fetchData={fetchData}
+                                                />
 											</td>
 										</tr>
 									))}
@@ -157,10 +170,8 @@ export default function Dashboard() {
 
     return (
         <>
-            <div>
-                <DashboardTabs selectedTab={selectedTab} handleTabChange={handleTabChange} />
-                <DashboardContent tab={selectedTab} />
-            </div>
+            <DashboardTabs selectedTab={selectedTab} handleTabChange={handleTabChange} />
+            <DashboardContent tab={selectedTab} />
         </>
     );
 }

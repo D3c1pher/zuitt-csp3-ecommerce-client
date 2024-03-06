@@ -12,7 +12,7 @@ export default function AppNavbar() {
     return (
         <>
             {/* Header Navigation */}
-            <div className="navbar bg-base-100">
+            <div className="navbar fixed bg-base-100">
 
                 {/* Navigation Left Side */} 
                 <div className="navbar-start">
