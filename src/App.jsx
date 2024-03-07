@@ -15,6 +15,7 @@ import Shop from "./pages/Shop";
 import Dashboard from "./pages/Dashboard";
 import AddProduct from "./pages/AddProduct";
 import EditProduct from "./pages/EditProduct";
+import ProductView from "./pages/ProductView";
 /* ===== Styling ===== */
 import './App.css';
 
@@ -71,6 +72,7 @@ export default function App() {
               <Route path="/register" element={<Register />}/>
               {/* <Route path="/products" element={<Products />}/> */}
               <Route path="/shop" element={<Shop />} />
+              <Route path="/shop/:productId" element={<ProductView />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/add-product" element={<AddProduct />} />
               <Route path="/dashboard/edit-product/:productId" element={<EditProduct />} />

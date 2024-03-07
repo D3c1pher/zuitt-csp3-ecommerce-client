@@ -14,7 +14,7 @@ export default function ProductCard({productsProp}) {
                 <p className="mt-1 text-sm text-black">{description}</p>
                 <p className="font-medium text-2xl text-secondary">₱ {price}</p>
                 <div className="card-actions justify-between">
-                    <Link className="btn btn-outline btn-primary rounded-xl" to={`/courses/${_id}`}>Details</Link>
+                    <Link className="btn btn-outline btn-primary rounded-xl" to={`/shop/${_id}`}>Details</Link>
                     <button className="btn btn-outline btn-primary rounded-xl">Add to Cart</button>
                 </div>
             </div>
