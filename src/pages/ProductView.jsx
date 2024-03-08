@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import UserContext from "../UserContext";
@@ -31,39 +31,87 @@ export default function ProductView() {
 
 	const { productId } = useParams();
 
-	const navigate = useNavigate();
+  const isAuthenticated = user && user.id !== null;
 
   // const [image, setImage] = useState([]);
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
 	const [price, setPrice] = useState(0);
-  const [quantity, setQuantity] = useState(0);
-  const [color, setColor] = useState(product.colors[0])
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState(product.colors[0]);
 
-	useEffect(() => {
-		fetch(`http://localhost:4003/b3/products/${productId}`)
-			.then(res => res.json())
-			.then(data => {
+  const token = localStorage.getItem('token');
+  const apiUrl = process.env.REACT_APP_API_URL;
 
-        console.log(data.product)
-				setName(data.product.name);
-				setDescription(data.product.description);
-				setPrice(data.product.price);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/b3/products/${productId}`);
+        const data = await response.json();
+      
+        setName(data.product.name);
+        setDescription(data.product.description);
         setCategory(data.product.category);
-        setImage(data.product.image);
+        setPrice(data.product.price);
+        setQuantity(data.product.quantity);
+        // setImage(data.product.image);
+        
+      } catch (err) {
+        console.log(err);
+      }
+    }
 
-			})
+    fetchData();
+  }, [productId]);
 
-	}, [productId]);
+  const handleIncreaseQuantity = () => {
+    setQuantity(prevQuantity => prevQuantity + 1);
+  };
+
+  const handleDecreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(prevQuantity => prevQuantity - 1);
+    }
+  };
+
+  const addToCart = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${apiUrl}/b3/cart/addToCart`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ 
+          productId: productId,
+          quantity: quantity
+        })
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Product successfully created")
+
+        navigate("/shop");
+    } else {
+        alert(data.message);
+    }
+
+    } catch (err) {
+      console.error(err);
+      alert("Internal Server Error")
+    }
+  }
 
   return (
-    <div className="bg-base-100 pt-6">
+    <div className="bg-base-100 pt-6 pb-8">
       <div className="container">
       
         {/* Beeadcrumb */}
         <nav aria-label="Breadcrumb">
-          <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <ol role="list" className="flex max-w-2xl items-center space-x-2 px-10">
             <li>
               <div className="flex items-center">
                 <a href="/shop" className="mr-2 text-md font-medium">
@@ -104,7 +152,7 @@ export default function ProductView() {
               </a>
             </li>
           </ol>
-        </nav>
+        </nav> 
 
         <div className="divider divider-primary py-5 px-10"></div>
 
@@ -144,7 +192,7 @@ export default function ProductView() {
               </div>
             </div>
 
-            <form className="mt-10">
+            <form onSubmit={e => addToCart(e)} className="mt-10">
               
               {/* Colors */}
               <div>
@@ -177,20 +225,60 @@ export default function ProductView() {
                 </RadioGroup>
               </div>
 
-              {/* Sizes */}
+              {/* Quantity */}
               <div className="mt-10">
-                <div className="flex items-center justify-between">
+                <div className="items-center justify-between">
                   <h3 className="text-sm font-medium">Quantity</h3>
+                  <div className="flex items-center mt-4">
+                    <button
+                      type="button" // Specify button type to prevent form submission
+                      onClick={handleDecreaseQuantity}
+                      className="bg-gray-200 text-gray-700 px-3 py-1"
+                    >
+                      -
+                    </button>
+                    <input 
+                      type="number" 
+                      value={quantity} 
+                      placeholder="0" 
+                      className="input input-sm text-center w-[60px]" 
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value, 10);
+                        if (!isNaN(value) || e.target.value === '') {
+                          setQuantity(value);
+                        } else {
+                          setQuantity(1); 
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleIncreaseQuantity}
+                      className="bg-gray-200 text-gray-700 px-3 py-1"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              {/* Add to Cart Button */}
-              <button
-                type="submit"
-                className="btn btn-primary hover:btn-secondary mt-10 flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 font-bold focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-              >
-                ADD TO CART
-              </button>
+              {isAuthenticated ? (
+                /* Add to Cart Button */
+                <button
+                  type="submit"
+                  className="btn btn-primary hover:btn-secondary mt-10 flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 font-bold focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                >
+                  ADD TO CART
+                </button>
+              ) : (
+                /* Link to Login */
+                <Link
+                  to="/login"
+                  className="btn btn-primary hover:btn-secondary mt-10 flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 font-bold focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                >
+                  SIGN IN TO SHOP
+                </Link>
+              )}
             </form>
 
           </div>

@@ -1,21 +1,22 @@
 /* ===== Dependencies and Modules ===== */
-import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { UserProvider } from "./UserContext";
+import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { UserProvider } from './UserContext';
 /* ===== Components ===== */
-import AppNavbar from "./components/AppNavbar";
-import Footer from "./components/Footer";
+import AppNavbar from './components/AppNavbar';
+import Footer from './components/Footer';
 /* ===== Pages (ALL ACCESS) ===== */
-import Home from "./pages/Home";
+import Cart from './pages/Cart';
+import Home from './pages/Home';
 import Login from './pages/Login';
-import Logout from "./pages/Logout";
-import ProductView from "./pages/ProductView";
-import Register from "./pages/Register";
-import Shop from "./pages/Shop";
+import Logout from './pages/Logout';
+import ProductView from './pages/ProductView';
+import Register from './pages/Register';
+import Shop from './pages/Shop';
 /* ===== Pages (ADMIN ACCESS) ===== */
-import AddProduct from "./pages/AddProduct";
-import Dashboard from "./pages/Dashboard";
-import EditProduct from "./pages/EditProduct";
+import AddProduct from './pages/AddProduct';
+import Dashboard from './pages/Dashboard';
+import EditProduct from './pages/EditProduct';
 /* ===== Pages (ERROR) ===== */
 import NotFound from './pages/error-pages/NotFound';
 import Forbidden from './pages/error-pages/Forbidden';
@@ -34,7 +35,7 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
 
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const apiUrl = process.env.REACT_APP_API_URL;
 
       try {
@@ -83,6 +84,7 @@ export default function App() {
               {/* SHOP PAGES */}
               <Route path="/shop" element={<Shop />} />
               <Route path="/shop/:productId" element={<ProductView />} />
+              <Route path="/cart" element={<Cart />} />
 
               {/* ADMIN ACCESS DASHBOARD PAGES */}
               <Route path="/dashboard" element={<Dashboard />} />

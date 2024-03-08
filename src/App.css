@@ -48,3 +48,16 @@ table {
 	border-spacing: 0;
 }
 /* ===== CSS Reset End ===== */
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.texture {
+	z-index: 9999;
+	background-image: url(./assets/paper-texture.png);
+	background-repeat: repeat; 
+	background-blend-mode: multiply;
+}

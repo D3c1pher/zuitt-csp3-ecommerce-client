@@ -40,41 +40,45 @@ export default function Shop({productsData}) {
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-            const response = await fetch(`http://localhost:4003/b3/products/active`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
-                }
-            });
 
-            if (!response.ok) {
-                throw new Error('Failed to fetch products');
-            }
+      const token = localStorage.getItem('token');
+      const apiUrl = process.env.REACT_APP_API_URL;
 
-            const data = await response.json();
+      try {
+        const response = await fetch(`${apiUrl}/b3/products/active`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
 
-            if (Array.isArray(data.products)) {
-                setProducts(data.products);
-            } else {
-                setProducts([]);
-            }
-
-        } catch (error) {
-            console.error('Error viewing products:', error);
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
         }
+
+        const data = await response.json();
+
+        if (Array.isArray(data.products)) {
+          setProducts(data.products);
+        } else {
+          setProducts([]);
+        }
+
+      } catch (err) {
+        console.error('Error viewing products: ', err);
+      }
     }
     fetchData();
   }, []);
 
   useEffect(() => {
-      if (Array.isArray(productsData)) {
-          const activeProducts = productsData.filter(product => product.isActive === true);
-          setProducts(activeProducts);
-      }
+    if (Array.isArray(productsData)) {
+      const activeProducts = productsData.filter(product => product.isActive === true);
+      setProducts(activeProducts);
+    }
   }, [productsData]);
 
   return (
-    <div className="bg-base-100">
+    <div className="texture bg-base-100">
       <div>
 
         {/* Mobile filter dialog */}
@@ -131,7 +135,7 @@ export default function Shop({productsData}) {
                         {({ open }) => (
                           <>
                             <h3 className="-mx-2 -my-3 flow-root">
-                              <Disclosure.Button className="flex w-full items-center justify-between bg-base-100 px-2 py-3 hover:opacity-80">
+                              <Disclosure.Button className="flex w-full items-center justify-between bg-transparent px-2 py-3 hover:opacity-80">
                                 <span className="font-medium">{section.name}</span>
                                 <span className="ml-6 flex items-center">
                                   {open ? (
@@ -175,9 +179,17 @@ export default function Shop({productsData}) {
           </Dialog>
         </Transition.Root>
 
+        {/* MAIN SHOP */}
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-baseline justify-between border-b border-gray-200 pt-10">
+          <div className="flex items-center justify-between border-b border-gray-200 pt-10">
             <h1 className="text-4xl font-bold tracking-tight text-primary">SHOP</h1>
+
+            <label className="input input-bordered input-primary w-full min-w-xs max-w-lg flex items-center gap-2 mx-10">
+              <input type="text" className="grow" placeholder="Search" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
+            </label>
+
+
 
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
@@ -223,9 +235,9 @@ export default function Shop({productsData}) {
                 </Transition>
               </Menu>
 
-              <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
+              {/* <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
                 <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
-              </button>
+              </button> */}
               <button
                 type="button"
                 className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
@@ -256,7 +268,7 @@ export default function Shop({productsData}) {
                     {({ open }) => (
                       <>
                         <h3 className="-my-3 flow-root">
-                          <Disclosure.Button className="flex w-full items-center justify-between bg-base-100 py-3 text-sm hover:opacity-80">
+                          <Disclosure.Button className="flex w-full items-center justify-between bg-transparent py-3 text-sm hover:opacity-80">
                             <span className="font-medium">{section.name}</span>
                             <span className="ml-6 flex items-center">
                               {open ? (
@@ -295,7 +307,7 @@ export default function Shop({productsData}) {
                 ))}
               </form>
 
-              {/* Product grid */}
+              {/* Product List*/}
               <div className="lg:col-span-3">
                 <div className="grid grid-cols-1 gap-8 items-center">
                   {products.map(product => (
@@ -310,5 +322,5 @@ export default function Shop({productsData}) {
         
       </div>
     </div>
-  )
+  );
 }

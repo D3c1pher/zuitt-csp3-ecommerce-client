@@ -26,8 +26,11 @@ export default function Register() {
 
     const registerUser = async (e) => {
         e.preventDefault();
+
+        const apiUrl = process.env.REACT_APP_API_URL;
+
         try {
-            const response = await fetch('http://localhost:4003/b3/users/register', {
+            const response = await fetch(`${apiUrl}/b3/users/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -253,6 +256,5 @@ export default function Register() {
             </div>
         </div>
     </>
-);
+  );
 }
-

@@ -12,7 +12,7 @@ export default function AppNavbar() {
     return (
         <>
             {/* Header Navigation */}
-            <div className="navbar fixed bg-base-100">
+            <div className="navbar fixed bg-base-100 z-50">
 
                 {/* Navigation Left Side */} 
                 <div className="navbar-start">
@@ -75,7 +75,7 @@ export default function AppNavbar() {
                                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                                     <div className="indicator">
                                         <ShoppingCartIcon className="h-5 w-5" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-                                        <span className="badge badge-sm indicator-item">8</span>
+                                        {/* <span className="badge badge-sm indicator-item">8</span> */}
                                     </div>
                                 </div>
                                 {/* Cart Dropdown Content */}
@@ -84,7 +84,7 @@ export default function AppNavbar() {
                                         <span className="font-bold text-lg">8 Items</span>
                                         <span className="text-info">Total: $999</span>
                                         <div className="card-actions">
-                                            <button className="btn btn-primary btn-block">View cart</button>
+                                            <Link to="/cart" className="btn btn-primary btn-block">View cart</Link>
                                         </div>
                                     </div>
                                 </div>
