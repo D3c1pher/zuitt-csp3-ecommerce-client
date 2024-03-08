@@ -93,7 +93,7 @@ export default function Dashboard() {
 
     const DashboardContent = ({ tab }) => {
 		return (
-			<div className="mx-auto py-5">
+			<div className="mx-auto py-5 bg-base-100">
 				{tab === 'products' && (
 					<>
                        <div className=" flex lg:ml-4 lg:mt-0 items-center justify-between mb-5">
