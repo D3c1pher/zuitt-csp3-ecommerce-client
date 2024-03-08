@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import CartItemCard from '../components/CartItemCard'
+import CartItemCard from '../components/CartItemCard';
+import Checkout from '../components/Checkout';
 
 export default function Cart() {
   const [cart, setCart] = useState(null);
@@ -66,7 +67,7 @@ export default function Cart() {
                   {/* Clear Cart */}
                   <button className="btn btn-lg btn-error rounded-xl text-white m-2">Clear Cart</button>
                   {/* Checkout Cart */}
-                  <button className="btn btn-lg btn-primary hover:btn-secondary rounded-xl text-white hover:text-white m-2">Checkout</button>
+                  <Checkout />
                 </div>
 
               </div>

@@ -13,6 +13,7 @@ import Logout from './pages/Logout';
 import ProductView from './pages/ProductView';
 import Register from './pages/Register';
 import Shop from './pages/Shop';
+import MyOrders from './pages/MyOrders';
 /* ===== Pages (ADMIN ACCESS) ===== */
 import AddProduct from './pages/AddProduct';
 import Dashboard from './pages/Dashboard';
@@ -85,6 +86,7 @@ export default function App() {
               <Route path="/shop" element={<Shop />} />
               <Route path="/shop/:productId" element={<ProductView />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/my-orders" element={<MyOrders />} />
 
               {/* ADMIN ACCESS DASHBOARD PAGES */}
               <Route path="/dashboard" element={<Dashboard />} />

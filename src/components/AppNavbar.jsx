@@ -119,7 +119,8 @@ export default function AppNavbar() {
                                             {/* <span className="badge">New</span> */}
                                         </Link>
                                     </li>
-                                    <li><Link to="/settings">Settings</Link></li>
+                                    <li><Link to="/billing">Billing</Link></li>
+                                    <li><Link to="/my-orders">Orders</Link></li>
                                     <li><Link to="/logout">Logout</Link></li>
                                 </>
                                 :

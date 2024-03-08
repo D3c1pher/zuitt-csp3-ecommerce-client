@@ -1,7 +1,6 @@
 import {useState, useEffect, useContext} from 'react';
 import { Link, Navigate } from "react-router-dom";
 import ArchiveProduct from '../components/ArchiveProduct';
-import EditProduct from './EditProduct';
 import UserContext from '../UserContext';
 
 export default function Dashboard() {
@@ -13,6 +12,8 @@ export default function Dashboard() {
     const handleTabChange = (tab) => {
         setSelectedTab(tab);
     };
+
+    const isAdmin = user && user.id !== null && user.isAdmin; 
 
     const fetchData = async () => {
         try {
@@ -169,9 +170,13 @@ export default function Dashboard() {
 	}
 
     return (
-        <>
-            <DashboardTabs selectedTab={selectedTab} handleTabChange={handleTabChange} />
-            <DashboardContent tab={selectedTab} />
-        </>
+        isAdmin ? (
+            <>
+              <DashboardTabs selectedTab={selectedTab} handleTabChange={handleTabChange} />
+              <DashboardContent tab={selectedTab} />
+            </>
+        ) : (
+            <Navigate to="/shop" />
+        )
     );
 }
