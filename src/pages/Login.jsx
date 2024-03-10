@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import UserContext from '../UserContext';
 import LogoImgColor from '../assets/inspired-weaver-logo-color.png';
 
@@ -10,7 +11,6 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [emailOrUsernameError, setemailOrUsernameError] = useState('');
   const [passwordError, setpasswordError] = useState('');
-  const [errorAlert, setErrorAlert] = useState(false);
   const [isForbidden, setIsForbidden] = useState(false);
 
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -35,26 +35,29 @@ export default function Login() {
       if (data.message === "Email or username is invalid") {
         setemailOrUsernameError(data.message);
         setpasswordError('');
-        setErrorAlert(true);
+        toast.warn('Authentication failed!');
+
       } else if (data.message === "Password is incorrect") {
         setemailOrUsernameError('');
         setpasswordError(data.message);
-        setErrorAlert(true);
+        toast.warn('Authentication failed!');
+      
       } else if (
         data.message === "Forbidden Access! Your account is not active." || data.message === "Forbidden Access! Your account has been blocked."
       ) {
         setIsForbidden(true);
+
       } else {
         localStorage.setItem("token", data.access);
         retrieveUserDetails(data.access);
         setemailOrUsernameError('');
         setpasswordError('');
-        setErrorAlert(false);
+        toast.success(`Welcome, Happy Shopping!`);
       }
 
     } catch (err) {
       console.error('Error occurred while logging in: ', err);
-      setErrorAlert(true);
+      toast.error('Internal Server Error!');
     }
   }
 
@@ -87,19 +90,9 @@ export default function Login() {
   } else {
     return (
       <>
-        {/* Error Alert */}
-        {errorAlert && (
-          <div className="py-5 sm:px-5 md:px-10 lg:px-20">
-            <div role="alert" className="alert alert-warning" close>
-              <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-              <span>Authentication Failed!</span>
-            </div>
-          </div>
-        )}
+        <div className="texture bg-gradient-to-br from-primary/60 to-secondary/60 flex h-full flex-1 flex-col justify-center px-6 py-10 lg:px-8">
 
-        {/* Login */}
-        <div className="flex h-full flex-1 flex-col justify-center px-6 py-8 lg:px-8">
-          <div className="sm:mx-auto sm:w-full sm:max-w-lg rounded-lg sm:shadow-md p-10 bg-base-100">
+          <div className="sm:mx-auto sm:w-full sm:max-w-lg rounded-lg sm:shadow-md p-10 bg-base-100/50">
 
             {/* Company Logo */}
             <img
@@ -131,7 +124,7 @@ export default function Login() {
                     onChange={(e) => setEmailOrUsername(e.target.value)}
                     required
                   />
-                    
+
                   {/* Input Password */}
                   <div className="label">
                     <span className="label-text">Password</span>

@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
+import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
 import ProductCard from '../components/ProductCard';
 
 // Data Placeholders
@@ -181,6 +181,8 @@ export default function Shop({productsData}) {
 
         {/* MAIN SHOP */}
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          
+          {/* Menu */}
           <div className="flex items-center justify-between border-b border-gray-200 pt-10">
             <h1 className="text-4xl font-bold tracking-tight text-primary">SHOP</h1>
 
@@ -188,8 +190,6 @@ export default function Shop({productsData}) {
               <input type="text" className="grow" placeholder="Search" />
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
             </label>
-
-
 
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
@@ -251,10 +251,12 @@ export default function Shop({productsData}) {
 
           <div className="divider divider-primary"></div>
 
+          {/* Shop Body */}
           <section aria-labelledby="products-heading" className="pb-24 pt-6">
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+              
               {/* Filters */}
-              <form className="hidden lg:block">
+              <form className="hidden lg:block bg-base-100 p-10 rounded-lg shadow-xl">
                 <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium">
                   {subCategories.map((category) => (
                     <li key={category.name}>

@@ -10,10 +10,10 @@ import Cart from './pages/Cart';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
+import MyOrders from './pages/MyOrders';
 import ProductView from './pages/ProductView';
 import Register from './pages/Register';
 import Shop from './pages/Shop';
-import MyOrders from './pages/MyOrders';
 /* ===== Pages (ADMIN ACCESS) ===== */
 import AddProduct from './pages/AddProduct';
 import Dashboard from './pages/Dashboard';
@@ -22,7 +22,9 @@ import EditProduct from './pages/EditProduct';
 import NotFound from './pages/error-pages/NotFound';
 import Forbidden from './pages/error-pages/Forbidden';
 /* ===== Styling ===== */
-import './App.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './App.scss';
 
 /* ===== App ===== */
 export default function App() {
@@ -72,7 +74,20 @@ export default function App() {
     <UserProvider value={{ user, setUser, unsetUser }}>
       <Router>
         <AppNavbar />
-          <div className="w-full pt-16">
+          <div className="w-full pt-24">
+            <ToastContainer
+              position="top-right"
+              autoClose={2000}
+              hideProgressBar={false}
+              newestOnTop={true}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover={false}
+              theme="colored"
+              transition: Bounce
+            />
             <Routes>
               {/* ALL ACCESS PAGES */}
               <Route path="/" element={<Home />}/>
