@@ -8,7 +8,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ProductCard({productsProp}) {
+export default function ProductCard({ productsProp }) {
 	const { _id, name, description, price } = productsProp;
 
   return (

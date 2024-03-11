@@ -1,19 +1,24 @@
 /* ===== Dependencies and Modules ===== */
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import { UserProvider } from './UserContext';
 /* ===== Components ===== */
 import AppNavbar from './components/AppNavbar';
 import Footer from './components/Footer';
-/* ===== Pages (ALL ACCESS) ===== */
+/* ===== Pages (USER ACCESS) ===== */
 import Cart from './pages/Cart';
+import Discover from './pages/Discover';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import MyOrders from './pages/MyOrders';
 import ProductView from './pages/ProductView';
+import UserProfile from './pages/UserProfile';
 import Register from './pages/Register';
 import Shop from './pages/Shop';
+import Support from './pages/Support';
+import UserSettings from './pages/UserSettings';
 /* ===== Pages (ADMIN ACCESS) ===== */
 import AddProduct from './pages/AddProduct';
 import Dashboard from './pages/Dashboard';
@@ -22,9 +27,12 @@ import EditProduct from './pages/EditProduct';
 import NotFound from './pages/error-pages/NotFound';
 import Forbidden from './pages/error-pages/Forbidden';
 /* ===== Styling ===== */
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.scss';
+/* ===== Animation ===== */
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 
 /* ===== App ===== */
 export default function App() {
@@ -34,6 +42,26 @@ export default function App() {
     localStorage.clear();
     setUser(null);
   }
+
+  useEffect(() => {
+    AOS.init({
+      disable: false,
+      startEvent: 'DOMContentLoaded',
+      initClassName: 'aos-init',
+      animatedClassName: 'aos-animate',
+      useClassNames: false,
+      disableMutationObserver: false,
+      debounceDelay: 50,
+      throttleDelay: 99,
+      offset: 120,
+      delay: 0,
+      duration: 400,
+      easing: 'ease',
+      once: true,
+      mirror: false,
+      anchorPlacement: 'top-bottom',
+    });
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,7 +75,6 @@ export default function App() {
             Authorization: `Bearer ${token}`
           }
         });
-
         const data = await response.json();
 
         if (data.user) {
@@ -63,7 +90,8 @@ export default function App() {
         }
 
       } catch (err) {
-        console.error(err);
+        console.error('Error in fetching user details: ', err);
+        toast.error('Internal Server Error!');
       }
     };
 
@@ -97,11 +125,15 @@ export default function App() {
               <Route path="/logout" element={<Logout />}/>
               <Route path="/register" element={<Register />}/>
 
-              {/* SHOP PAGES */}
+              {/* USER PAGES */}
               <Route path="/shop" element={<Shop />} />
               <Route path="/shop/:productId" element={<ProductView />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/my-orders" element={<MyOrders />} />
+              <Route path="/discover" element={<Discover />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/profile" element={<UserProfile />} />
+              <Route path="/account" element={<UserSettings />} />
 
               {/* ADMIN ACCESS DASHBOARD PAGES */}
               <Route path="/dashboard" element={<Dashboard />} />

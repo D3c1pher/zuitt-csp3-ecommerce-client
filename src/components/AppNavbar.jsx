@@ -1,7 +1,8 @@
 import React, { Fragment, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'; 
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
-import { Bars3Icon, ShoppingBagIcon, XMarkIcon, UserIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon, UserIcon } from '@heroicons/react/24/outline'
+import CartIcon from './CartIcon';
 import UserContext from "../UserContext";
 import LogoImg from '../assets/inspired-weaver-logo-color.png'
 
@@ -68,12 +69,12 @@ const navigation = {
         {
           name: 'New Arrivals',
           href: '/shop',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
         },
         {
           name: 'Featured Products',
           href: '/shop',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
         },
       ],
       sections: [
@@ -420,13 +421,7 @@ export default function AppNavbar() {
                 {/* Cart */}
                 { isAuthenticated && !isAdmin && (
                   <div className="ml-4 flow-root lg:ml-6">
-                    <a href="/cart" className="group -m-2 flex items-center p-2">
-                      <ShoppingBagIcon
-                        className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                        aria-hidden="true"
-                      />
-                      <span className="ml-2 text-sm font-medium">0</span>
-                    </a>
+                    <CartIcon />
                   </div>
                 )}
                 
@@ -447,10 +442,15 @@ export default function AppNavbar() {
                             className="justify-between"
                         >
                             Profile
-                            <span className="badge">New</span>
+                            <span className="badge badge-secondary badge-outline">WIP</span>
                         </Link>
                     </li>
-                    <li><Link to="/account">Account</Link></li>
+                    <li>
+                      <Link to="/account">
+                        Account
+                        <span className="badge badge-secondary badge-outline">WIP</span>
+                      </Link>
+                    </li>
                     {
                       isAdmin ? (
                         <li>

@@ -62,7 +62,7 @@ export default function Register() {
                 setAddress('');
                 setBirthdate('');
 
-                toast.success(`Sign up successful!`);
+                toast.success('Sign up successful!');
                 return <Navigate to="/login" />;
             }
         } catch (err) {

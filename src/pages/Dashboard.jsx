@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { Link, Navigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import ArchiveProduct from '../components/ArchiveProduct';
 import SetUserRole from '../components/SetUserRole';
 import UserContext from '../UserContext';
@@ -28,12 +29,12 @@ export default function Dashboard() {
                     Authorization: `Bearer ${token}`
                 }
             });
+            const data = await response.json();
 
             if (!response.ok) {
+                toast.error('Failed to fetch products');
                 throw new Error('Failed to fetch products');
             }
-
-            const data = await response.json();
 
             if (Array.isArray(data.products)) {
                 setProducts(data.products);
@@ -43,6 +44,7 @@ export default function Dashboard() {
 
         } catch (err) {
             console.error('Error viewing products: ', err);
+            toast.error('Internal Server Error!');
         }
     }
 
@@ -53,12 +55,12 @@ export default function Dashboard() {
                     Authorization: `Bearer ${token}`
                 }
             });
+            const data = await response.json();
 
             if (!response.ok) {
+                toast.error('Failed to fetch users');
                 throw new Error('Failed to fetch users');
             }
-
-            const data = await response.json();
 
             if (Array.isArray(data.users)) {
                 setUsers(data.users);
@@ -68,6 +70,7 @@ export default function Dashboard() {
 
         } catch (err) {
             console.error('Error viewing users: ', err);
+            toast.error('Internal Server Error!');
         }
     }
 
@@ -78,12 +81,12 @@ export default function Dashboard() {
                     Authorization: `Bearer ${token}`
                 }
             });
+            const data = await response.json();
 
             if (!response.ok) {
+                toast.error('Failed to fetch orders');
                 throw new Error('Failed to fetch orders');
             }
-
-            const data = await response.json();
 
             if (Array.isArray(data.orders)) {
                 setOrders(data.orders);
@@ -93,6 +96,7 @@ export default function Dashboard() {
 
         } catch (err) {
             console.error('Error viewing orders: ', err);
+            toast.error('Internal Server Error!');
         }
     }
         
@@ -188,7 +192,7 @@ export default function Dashboard() {
 										<tr key={product._id} className="hover text-center">
 											<td>{product._id}</td>
 											<td>{product.name}</td>
-											<td>{product.description}</td>
+											<td className="px-8 max-w-xs md:max-w-md truncate">{product.description}</td>
 											<td>{product.price}</td>
 											<td className={product.isActive ? "text-success" : "text-danger"}>
 												{product.isActive ? "Available" : "Unavailable"}
@@ -297,7 +301,7 @@ export default function Dashboard() {
                                                     if (product) {
                                                         return (
                                                             <li key={item._id}>
-                                                                <p>{product.name} - Quantity: {product.quanity}</p>
+                                                                <p>{product.name} - Quantity : {item.quantity}</p>
                                                             </li>
                                                         );
                                                     } else {
@@ -326,6 +330,6 @@ export default function Dashboard() {
             </>
         );
     } else {
-        // return <Navigate to="/shop" />;
+        return <Navigate to="/shop" />;
     }
 }

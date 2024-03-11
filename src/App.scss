@@ -49,6 +49,7 @@ table {
 }
 /* ===== CSS Reset End ===== */
 
+/* ===== Custom CSS Start ===== */
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -71,15 +72,4 @@ input[type='number']::-webkit-outer-spin-button {
 	background-image: url(./assets/hero.jpg);
 	background-blend-mode: multiply;
 }
-
-// .hero-bg::after {
-// 	content: "";
-// 	position: absolute;
-// 	inset: 0;
-// 	background: black;
-// 	z-index: -1;
-// 	scale: 2;
-// 	opacity: 0.5;
-// 	filter: blur(5rem);
-// 	translate: -50%;
-// }
+/* ===== Custom CSS End ===== */

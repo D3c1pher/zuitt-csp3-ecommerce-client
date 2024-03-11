@@ -17,31 +17,48 @@ export default function HeroSection() {
           />
         </div>
 
-        <div className="mx-auto max-w-2xl py-28 sm:py-38 lg:py-50">
+        <div className="mx-auto max-w-2xl py-20 sm:py-38 lg:py-50">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center drop-shadow-xl">
-            <div className="relative rounded-full px-3 text-sm leading-6 text-white/95 ring-1 ring-base-100/80">
+            <div 
+              className="relative rounded-full px-3 text-sm leading-6 text-white/95 ring-1 ring-base-100/80"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+            >
               Check out the latest fashion trends.{' '}
-              <a href="#" className="font-semibold text-pink-500 hover:opacity-80">
+              <a href="/discover" className="font-semibold text-pink-500 hover:opacity-80">
                 <span className="absolute inset-0" aria-hidden="true" />
                 Read more <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
           </div>
           <div className="text-center">
-            <h1 className="text-4xl font-black tracking-tight sm:text-6xl text-white drop-shadow-xl">
+            <h1 
+              className="text-4xl font-black tracking-tight sm:text-6xl text-white drop-shadow-xl" 
+              data-aos="fade-up"
+              data-aos-duration="1500"
+            >
               WEAVING INSPIRATION INTO FASHION
             </h1>
-            <p className="mt-6 font-semibold text-lg leading-8 text-white drop-shadow-xl">
+            <p 
+              className="mt-6 font-semibold text-lg leading-8 text-white drop-shadow-xl" 
+              data-aos="fade-up"
+              data-aos-duration="2000"
+            >
               Fashion is more than just clothing – it's a canvas for creativity, self-expression, and individuality. Our curated collections are crafted to inspire and empower you to weave your own unique style narrative.
             </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
+            <div 
+              className="mt-10 flex items-center justify-center gap-x-6"
+              data-aos="fade-up"
+              data-aos-duration="2500"
+              data-aos-anchor-placement="center-bottom"
+            >
               <a
                 href="/shop"
                 className="btn btn-lg bg-indigo-500 rounded-md px-8 py-2.5 text-lg font-bold text-white shadow-sm hover:bg-indigo-500/80 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary drop-shadow-xl"
               >
                 EXPLORE SHOP
               </a>
-              <a href="#" className="text-xl font-bold leading-6 text-pink-500 hover:opacity-80 drop-shadow-xl">
+              <a href="/discover" className="text-xl font-bold leading-6 text-pink-500 hover:opacity-80 drop-shadow-xl">
                 Learn more <span aria-hidden="true">→</span>
               </a>
             </div>

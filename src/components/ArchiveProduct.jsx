@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-export default function ArchiveProduct({product, isActive, fetchProducts}) {
+export default function ArchiveProduct({ product, isActive, fetchProducts }) {
     const token = localStorage.getItem('token');
     const apiUrl = process.env.REACT_APP_API_URL;
 

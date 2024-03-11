@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
+import { toast } from 'react-toastify';
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
@@ -52,10 +53,13 @@ function classNames(...classes) {
 
 export default function Shop({productsData}) {
   const [products, setProducts] = useState([]);
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchProducts = async () => {
 
       const token = localStorage.getItem('token');
       const apiUrl = process.env.REACT_APP_API_URL;
@@ -66,12 +70,12 @@ export default function Shop({productsData}) {
             Authorization: `Bearer ${token}`
           }
         });
+        const data = await response.json();
 
         if (!response.ok) {
+          toast.error('Failed to fetch products');
           throw new Error('Failed to fetch products');
         }
-
-        const data = await response.json();
 
         if (Array.isArray(data.products)) {
           setProducts(data.products);
@@ -80,10 +84,12 @@ export default function Shop({productsData}) {
         }
 
       } catch (err) {
-        console.error('Error viewing products: ', err);
+        console.error('Error in viewing products: ', err);
+        toast.error('Internal Server Error!');
       }
     }
-    fetchData();
+
+    fetchProducts();
   }, []);
 
   useEffect(() => {
@@ -92,6 +98,110 @@ export default function Shop({productsData}) {
       setProducts(activeProducts);
     }
   }, [productsData]);
+
+  const handleSearchByName = async () => {
+    const token = localStorage.getItem('token');
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    try {
+      const response = await fetch(`${apiUrl}/b3/products/searchByName`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ name: searchQuery }),
+      });
+
+      if (!response.ok) {
+        toast.error('Failed to search products by name');
+        throw new Error('Failed to search products by name');
+      }
+
+      const data = await response.json();
+
+      if (Array.isArray(data.products)) {
+        setProducts(data.products);
+      } else {
+        setProducts([]);
+      }
+    } catch (err) {
+      console.error('Error searching products by name: ', err);
+      toast.error('Internal Server Error!');
+    }
+  }
+
+  const handleSearchByPrice = async () => {
+    const token = localStorage.getItem('token');
+    const apiUrl = process.env.REACT_APP_API_URL;
+  
+    try {
+      let body = {};
+
+      if (minPrice || maxPrice) {
+        body = { minPrice, maxPrice };
+      } else {
+        const response = await fetch(`${apiUrl}/b3/products/active`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+  
+        if (!response.ok) {
+          toast.error('Failed to fetch products');
+          throw new Error('Failed to fetch products');
+        }
+  
+        const data = await response.json();
+        setProducts(data.products || []);
+        return;
+      }
+  
+      const response = await fetch(`${apiUrl}/b3/products/searchByPrice`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
+  
+      if (!response.ok) {
+        toast.error('Failed to search products by price');
+        throw new Error('Failed to search products by price');
+      }
+  
+      const data = await response.json();
+  
+      if (Array.isArray(data.products)) {
+        setProducts(data.products);
+      } else {
+        setProducts([]);
+      }
+  
+    } catch (err) {
+      console.error('Error searching products by price: ', err);
+      toast.error('Internal Server Error!');
+    }
+  }
+
+  const handleSearch = async () => {
+    if (searchQuery) {
+      await handleSearchByName();
+    } else if (minPrice || maxPrice) {
+      await handleSearchByPrice();
+    }
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [minPrice, maxPrice]);
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   return (
     <div className="texture bg-base-100">
@@ -125,6 +235,7 @@ export default function Shop({productsData}) {
                 <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-base-100 py-32 pb-12 shadow-xl">
                   <div className="flex items-center justify-between px-4">
                     <h2 className="text-lg font-medium">Filters</h2>
+
                     <button
                       type="button"
                       className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-base-100 p-2"
@@ -134,12 +245,37 @@ export default function Shop({productsData}) {
                     </button>
                   </div>
 
+                  <div className="block px-5 pt-8">
+                    <label className="block">
+                      <span className="input-label font-bold my-2">Min Price :</span>
+                      <input
+                        type="number"
+                        className="input input-primary my-2"
+                        placeholder="Min"
+                        value={minPrice}
+                        onChange={(e) => setMinPrice(e.target.value)}
+                      />
+                    </label>
+                    <label className="block">
+                      <span className="input-label font-bold my-2">Max Price :</span>
+                      <input
+                        type="number"
+                        className="input input-primary my-2"
+                        placeholder="Max"
+                        value={maxPrice}
+                        onChange={(e) => setMaxPrice(e.target.value)}
+                      />
+                    </label>
+                  </div>
+
+                  <div className="divider divider-primary px-5 py-2 opacity-60"></div>
+
                   {/* Filters */}
-                  <form className="mt-4 border-t border-gray-200">
+                  <form className="border-t border-gray-200">
                     <ul role="list" className="px-2 font-medium">
                       {subCategories.map((category) => (
                         <li key={category.name}>
-                          <a href={category.href} className="block px-2 py-3">
+                          <a href={category.href} className="block px-2 py-3 hover:text-primary">
                             {category.name}
                           </a>
                         </li>
@@ -153,7 +289,7 @@ export default function Shop({productsData}) {
                         {({ open }) => (
                           <>
                             <h3 className="-mx-2 -my-3 flow-root">
-                              <Disclosure.Button className="flex w-full items-center justify-between bg-transparent px-2 py-3 hover:opacity-80">
+                              <Disclosure.Button className="flex w-full items-center justify-between bg-transparent px-2 hover:opacity-80">
                                 <span className="font-medium">{section.name}</span>
                                 <span className="ml-6 flex items-center">
                                   {open ? (
@@ -167,7 +303,7 @@ export default function Shop({productsData}) {
 
                             <div className="divider divider-primary opacity-60"></div>
 
-                            <Disclosure.Panel className="pt-6">
+                            <Disclosure.Panel className="pt-3">
                               <div className="space-y-6">
                                 {section.options.map((option, optionIdx) => (
                                   <div key={option.value} className="flex items-center">
@@ -204,12 +340,25 @@ export default function Shop({productsData}) {
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
           {/* Menu */}
-          <div className="flex items-center justify-between border-b border-gray-200 pt-10">
-            <h1 className="text-4xl font-bold tracking-tight text-primary">SHOP</h1>
+          <div className="flex items-center justify-between pt-8">
+
+            <div className="flex text-primary items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-16 h-16"><path fillRule="evenodd" d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 0 0 4.25 22.5h15.5a1.875 1.875 0 0 0 1.865-2.071l-1.263-12a1.875 1.875 0 0 0-1.865-1.679H16.5V6a4.5 4.5 0 1 0-9 0ZM12 3a3 3 0 0 0-3 3v.75h6V6a3 3 0 0 0-3-3Zm-3 8.25a3 3 0 1 0 6 0v-.75a.75.75 0 0 1 1.5 0v.75a4.5 4.5 0 1 1-9 0v-.75a.75.75 0 0 1 1.5 0v.75Z" clipRule="evenodd" /></svg>
+              <h1 className="hidden sm:block text-4xl font-black tracking-wide ml-3 pt-2">SHOP</h1>
+            </div>
 
             <label className="input input-bordered input-primary w-full min-w-xs max-w-lg flex items-center gap-2 mx-10">
-              <input type="text" className="grow" placeholder="Search" />
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
+              <input 
+                type="text"
+                className="grow"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={handleKeyPress} 
+              />
+              <button type="button" className="hover:text-primary" onClick={handleSearch}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-6 h-6 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
+              </button>
             </label>
 
             <div className="flex items-center">
@@ -256,9 +405,6 @@ export default function Shop({productsData}) {
                 </Transition>
               </Menu>
 
-              {/* <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
-                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
-              </button> */}
               <button
                 type="button"
                 className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
@@ -267,6 +413,7 @@ export default function Shop({productsData}) {
                 <span className="sr-only">Filters</span>
                 <FunnelIcon className="h-5 w-5" aria-hidden="true" />
               </button>
+              
             </div>
           </div>
 
@@ -278,6 +425,30 @@ export default function Shop({productsData}) {
               
               {/* Filters */}
               <form className="hidden lg:block bg-base-100 p-10 rounded-lg shadow-xl">
+              
+                <div className="my-5">
+                  <label>
+                    <span className="input-label font-bold my-2">Min Price :</span>
+                    <input
+                      type="number"
+                      className="input input-primary my-2"
+                      placeholder="Min"
+                      value={minPrice}
+                      onChange={(e) => setMinPrice(e.target.value)}
+                    />
+                  </label>
+                  <label>
+                    <span className="input-label font-bold my-2">Max Price :</span>
+                    <input
+                      type="number"
+                      className="input input-primary my-2"
+                      placeholder="Max"
+                      value={maxPrice}
+                      onChange={(e) => setMaxPrice(e.target.value)}
+                    />
+                  </label>
+                </div>
+      
                 <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium">
                   {subCategories.map((category) => (
                     <li key={category.name}>

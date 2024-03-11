@@ -20,6 +20,7 @@ export default function AddProduct() {
 
     const addProduct = async (e) => {
         e.preventDefault();
+        
         try {
             const response = await fetch(`${apiUrl}}/b3/products/`, {
                 method: 'POST',

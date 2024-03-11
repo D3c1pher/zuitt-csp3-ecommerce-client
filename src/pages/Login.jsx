@@ -78,6 +78,7 @@ export default function Login() {
 
     } catch (err) {
       console.error('Error occurred while retrieving user details: ', err);
+      toast.error('Internal Server Error!');
     }
   }
 

@@ -1,6 +1,11 @@
 export default function CountdownSection() {
+
   return (
-    <div className="pt-5">
+    <div 
+      className="pt-5"
+      data-aos="fade-up"
+      data-aos-duration="1000"
+    >
       <div className="divider text-center text-3xl font-bold">
         <h2>STYLESPHERE 2024 COUNTDOWN</h2>
       </div>
@@ -32,5 +37,5 @@ export default function CountdownSection() {
       </div>
       <div className="divider divider-base-300"></div>
     </div>
-  )
+  );
 }

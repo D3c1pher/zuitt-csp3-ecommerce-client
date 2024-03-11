@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from 'react-toastify';
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import UserContext from "../UserContext";
@@ -8,8 +9,18 @@ import UserContext from "../UserContext";
 const product = {
   colors: [
     { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-    { name: '1Gray', class: 'bg-gray-400', selectedClass: 'ring-gray-400' },
-    { name: 'Black', class: 'bg-black', selectedClass: 'ring-gray-900' },
+    { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
+    { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
+  ],
+  sizes: [
+    { name: 'XXS', inStock: false },
+    { name: 'XS', inStock: true },
+    { name: 'S', inStock: true },
+    { name: 'M', inStock: true },
+    { name: 'L', inStock: true },
+    { name: 'XL', inStock: true },
+    { name: '2XL', inStock: true },
+    { name: '3XL', inStock: true },
   ],
   highlights: [
     'lorem ipsum dolor sit amet, consectetur adip',
@@ -28,24 +39,25 @@ function classNames(...classes) {
 
 export default function ProductView() {
   const { user } =  useContext(UserContext);
-
 	const { productId } = useParams();
+  const navigate = useNavigate();
 
-  const isAuthenticated = user && user.id !== null;
-
-  // const [image, setImage] = useState([]);
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
 	const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [color, setColor] = useState(product.colors[0]);
+
+  const [color, setColor] = useState(product.colors[0])
+  const [size, setSize] = useState(product.sizes[2])
+
+  const isAuthenticated = user && user.id !== null;
 
   const token = localStorage.getItem('token');
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchProduct = async () => {
       try {
         const response = await fetch(`${apiUrl}/b3/products/${productId}`);
         const data = await response.json();
@@ -55,14 +67,14 @@ export default function ProductView() {
         setCategory(data.product.category);
         setPrice(data.product.price);
         setQuantity(data.product.quantity);
-        // setImage(data.product.image);
         
       } catch (err) {
-        console.log(err);
+        console.error('Error in fetching products: ', err);
+        toast.error('Internal Server Error');
       }
     }
 
-    fetchData();
+    fetchProduct();
   }, [productId]);
 
   const handleIncreaseQuantity = () => {
@@ -77,6 +89,7 @@ export default function ProductView() {
 
   const addToCart = async (e) => {
     e.preventDefault();
+    
     try {
       const response = await fetch(`${apiUrl}/b3/cart/addToCart`, {
         method: 'POST',
@@ -92,21 +105,20 @@ export default function ProductView() {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Product successfully created")
-
+        toast.success('Item added to cart');
         navigate("/shop");
-    } else {
-        alert(data.message);
-    }
+      } else {
+        toast.error(data.message);
+      }
 
     } catch (err) {
-      console.error(err);
-      alert("Internal Server Error")
+      console.error('Error in adding item to cart: ', err);
+      toast.error('Internal Server Error!');
     }
   }
 
   return (
-    <div className="bg-base-100 pt-6 pb-8">
+    <div className="bg-base-100 pt-6 pb-8 mt-5">
       <div className="container">
       
         {/* Beeadcrumb */}
@@ -154,7 +166,7 @@ export default function ProductView() {
           </ol>
         </nav> 
 
-        <div className="divider divider-primary py-5 px-10"></div>
+        <div className="divider divider-primary py-2 px-10"></div>
 
         {/* Product */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-10 items-center">
@@ -219,6 +231,67 @@ export default function ProductView() {
                             'h-8 w-8 rounded-full border border-black border-opacity-10'
                           )}
                         />
+                      </RadioGroup.Option>
+                    ))}
+                  </div>
+                </RadioGroup>
+              </div>
+
+              {/* Sizes */}
+              <div className="mt-10">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-medium">Size</h3>
+                  <a href="#" className="text-sm font-medium text-primary hover:text-primary/80">
+                    Size guide
+                  </a>
+                </div>
+
+                <RadioGroup value={size} onChange={setSize} className="mt-4">
+                  <div className="grid grid-cols-4 gap-4 sm:grid-cols-8">
+                    {product.sizes.map((size) => (
+                      <RadioGroup.Option
+                        key={size.name}
+                        value={size}
+                        disabled={!size.inStock}
+                        className={({ active }) =>
+                          classNames(
+                            size.inStock
+                              ? 'cursor-pointer bg-base-200 shadow-sm'
+                              : 'cursor-not-allowed bg-base-300',
+                            active ? 'ring-2 ring-primary' : '',
+                            'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-base-300 focus:outline-none sm:flex-1 sm:py-6'
+                          )
+                        }
+                      >
+                        {({ active, checked }) => (
+                          <>
+                            <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
+                            {size.inStock ? (
+                              <span
+                                className={classNames(
+                                  active ? 'border' : 'border-2',
+                                  checked ? 'border-primary' : 'border-transparent',
+                                  'pointer-events-none absolute -inset-px rounded-md'
+                                )}
+                                aria-hidden="true"
+                              />
+                            ) : (
+                              <span
+                                aria-hidden="true"
+                                className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+                              >
+                                <svg
+                                  className="absolute inset-0 h-full w-full stroke-2 opacity-40"
+                                  viewBox="0 0 100 100"
+                                  preserveAspectRatio="none"
+                                  stroke="currentColor"
+                                >
+                                  <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
+                                </svg>
+                              </span>
+                            )}
+                          </>
+                        )}
                       </RadioGroup.Option>
                     ))}
                   </div>

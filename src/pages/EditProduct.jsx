@@ -43,12 +43,14 @@ export default function EditProduct() {
                 console.error('Error in fetching product data: ', err);
                 toast.error('Internal Server Error!');
             }
-        };
+        }
+
         fetchProductData();
     }, [productId]);
 
     const editProduct = async (e) => {
         e.preventDefault();
+
         try {
             const response = await fetch(`${apiUrl}/b3/products/${productId}`, {
                 method: 'PUT',
@@ -79,7 +81,7 @@ export default function EditProduct() {
             console.error('Error in editing product data: ', err);
             toast.error('Internal Server Error!');
         }
-    };
+    }
 	
     return (
         <form onSubmit={e => editProduct(e)}>
