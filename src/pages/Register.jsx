@@ -1,28 +1,19 @@
 import { useState } from "react";
 import { Navigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import LogoImgColor from '../assets/inspired-weaver-logo-color.png';
 
 export default function Register() {
-    const [formData, setFormData] = useState({
-        firstname: "",
-        lastname: "",
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        mobileNo: "",
-        address: "",
-        birthdate: ""
-    });
-    const [registrationError, setRegistrationError] = useState("");
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value
-        }));
-    };
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [mobileNo, setMobileNo] = useState('');
+    const [address, setAddress] = useState('');
+    const [birthdate, setBirthdate] = useState('');
+    const [registrationError, setRegistrationError] = useState('');
 
     const registerUser = async (e) => {
         e.preventDefault();
@@ -30,231 +21,242 @@ export default function Register() {
         const apiUrl = process.env.REACT_APP_API_URL;
 
         try {
-            const response = await fetch(`${apiUrl}/b3/users/register`, {
+            const response = await fetch(`${apiUrl}/b3/users/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({formData})
+                body: JSON.stringify({
+                    firstname,
+                    lastname,
+                    username,
+                    email,
+                    password,
+                    confirmPassword,
+                    mobileNo,
+                    address,
+                    birthdate
+                })
             });
-
-            if (!response.ok) {
-                throw new Error("Error registering user");
-            }
-    
-
             const data = await response.json();
+                
+            if (data.message) {
+                setRegistrationError(data.message.map((error, index) => (
+                    <div key={index} className="flex text-error mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                        </svg>
+                        <span className="text-sm ml-1">{error}</span>
+                    </div>
+                )));
 
-            if (response.ok) {
-                setFormData({
-                    firstname: "",
-                    lastname: "",
-                    username: "",
-                    email: "",
-                    password: "",
-                    confirmPassword: "",
-                    mobileNo: "",
-                    address: "",
-                    birthdate: ""
-                });
-
-                alert("Registration successful!");
-                return <Navigate to="/login" />;
-            } else if (data.errors) {
-                setRegistrationError(data.errors.join('\n'));
+                toast.warn('Invalid inputs!');
             } else {
-                setRegistrationError("Something went wrong.");
+                setFirstname('');
+                setLastname('');
+                setUsername('');
+                setEmail('');
+                setPassword('');
+                setConfirmPassword('');
+                setMobileNo('');
+                setAddress('');
+                setBirthdate('');
+
+                toast.success(`Sign up successful!`);
+                return <Navigate to="/login" />;
             }
-        } catch (error) {
-            console.error('Error registering user:', error.message);
-            setRegistrationError("Error registering user");
+        } catch (err) {
+            console.error('Error registering user: ', err);
+            toast.error('Internal Server Error!');
+            setRegistrationError('Internal Server Error!');
         }
-    };
+    }
 
     return (
-        <>
-            <div className="flex min-h-full flex-1 flex-col justify-center px-4 sm:px-2 py-12 lg:px-4 m-0 bg-base-200">
-                <div className="sm:mx-auto sm:w-full sm:max-w-4xl bg-base-100 rounded-lg sm:shadow-md py-16 px-20">
+        <div className="texture bg-gradient-to-br from-primary/60 to-secondary/60 flex h-full flex-1 flex-col justify-center px-6 py-6 lg:px-8">
+            <div className="sm:mx-auto sm:w-full sm:max-w-lg rounded-lg sm:shadow-md p-10 bg-base-100/50">
 
-                    {/* Company Logo */}
-                    <img
-                        className="mx-auto h-20 w-auto"
-                        src={LogoImgColor}
-                        alt="Your Company"
-                    />
+                {/* Company Logo */}
+                <img
+                    className="mx-auto h-20 w-auto"
+                    src={LogoImgColor}
+                    alt="Your Company"
+                />
 
-                    <div className="mt-5 text-center">
-                        {/* Header Text */}
-                        <h2 className="text-2xl font-bold leading-9 tracking-tight text-primary">
-                            Create your account
-                        </h2>
+                <div className="text-center">
+                    {/* Header Text */}
+                    <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-tight">
+                        Create your account
+                    </h2>
 
-                        {/* Already have an account */}
-                        <p className="mt-2 text-sm">
-                            Already have an account?
-                            <a className="ml-1 text-secondary decoration-2 hover:underline font-medium" href="/login">
-                                Sign in here
-                            </a>
-                        </p>
-                    </div>
+                    {/* Already have an account */}
+                    <p className="mt-2 text-sm">
+                        Already have an account?
+                        <a className="ml-1 text-secondary decoration-2 hover:underline font-medium" href="/login">
+                            Sign in here
+                        </a>
+                    </p>
+                </div>
 
-                    {/* Register Form */}
-                    <form className="form-control w-full max-w-8xl mt-10" onSubmit={registerUser}>
+                {/* Register Form */}
+                <form onSubmit={registerUser}>
+                    <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
 
-                        {/* First Name Input */}
-                        <label className="input input-bordered input-primary w-full flex items-center gap-2 rounded-xl mt-2 bg-base-200">
-                            <input
-                                type="text"
-                                className="grow"
-                                placeholder="First Name"
-                                name="firstname"
-                                pattern="[A-Za-z]{1,32}"
-                                title="First name must contain only letters (1-32 characters)"
-                                value={formData.firstname}
-                                onChange={handleChange}
-                                required
-                            />
-                        </label>
+                        <label className="form-control w-full max-w-sm">
+                        {/* Input First Name */}
+                        <div className="label">
+                            <span className="label-text">First Name :</span>
+                        </div>
+                        <input 
+                            type="text"
+                            placeholder="First Name"
+                            name="firstname"
+                            value={firstname}
+                            onChange={(e) => setFirstname(e.target.value)}
+                            required
+                            className="input input-bordered input-primary flex w-full justify-stretch rounded-md max-w-sm"
+                        />
 
                         {/* Last Name Input */}
-                        <label className="input input-bordered input-primary w-full flex items-center gap-2 rounded-xl mt-2 bg-base-200">
-                            <input
-                                type="text"
-                                className="grow"
-                                placeholder="Last Name"
-                                name="lastname"
-                                pattern="[A-Za-z]{1,32}"
-                                title="Last name must contain only letters (1-32 characters)"
-                                value={formData.lastname}
-                                onChange={handleChange}
-                                required
-                            />
-                        </label>
+                        <div className="label">
+                            <span className="label-text">Last Name :</span>
+                        </div>
+                        <input 
+                            type="text"
+                            placeholder="Last Name"
+                            name="lastname"
+                            value={lastname}
+                            onChange={(e) => setLastname(e.target.value)}
+                            required
+                            className="input input-bordered input-primary flex w-full justify-stretch rounded-md max-w-sm"
+                        />
+
+                        <div className="divider divider-primary"></div>
 
                         {/* Username Input */}
-                        <label className="input input-bordered input-primary w-full flex items-center gap-2 rounded-xl mt-2 bg-base-200">
-                            <input
-                                type="text"
-                                className="grow"
-                                placeholder="Username"
-                                name="username"
-                                pattern="[A-Za-z0-9_-]{3,16}"
-                                title="Username must contain only letters, numbers, underscores, or hyphens (3-16 characters)"
-                                value={formData.username}
-                                onChange={handleChange}
-                                required
-                            />
-                        </label>
+                        <div className="label">
+                            <span className="label-text">Username :</span>
+                        </div>
+                        <input 
+                            type="text"
+                            placeholder="Username"
+                            name="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                            className="input input-bordered input-primary flex w-full justify-stretch rounded-md max-w-sm"
+                        />
 
                         {/* Email Input */}
-                        <label className="input input-bordered input-primary w-full flex items-center gap-2 rounded-xl mt-2 bg-base-200">
-                            <input
-                                type="email"
-                                className="grow"
-                                placeholder="Email"
-                                name="email"
-                                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                                title="Please enter a valid email address"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                            />
-                        </label>
+                        <div className="label">
+                            <span className="label-text">Email :</span>
+                        </div>
+                        <input 
+                            type="email"
+                            placeholder="Email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            className="input input-bordered input-primary flex w-full justify-stretch rounded-md max-w-sm"
+                        />
+
+                        <div className="divider divider-primary"></div>
 
                         {/* Password Input */}
-                        <label className="input input-bordered input-primary w-full flex items-center gap-2 rounded-xl mt-2 bg-base-200">
-                            <input
-                                type="password"
-                                className="grow"
-                                placeholder="Password"
-                                name="password"
-                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$"
-                                title="Password must contain at least one uppercase letter, one lowercase letter, one numeric digit, one special character, and be at least 8 characters long."
-                                value={formData.password}
-                                onChange={handleChange}
-                                required
-                            />
-                        </label>
+                        <div className="label">
+                            <span className="label-text">Password :</span>
+                        </div>
+                        <input 
+                            type="password"
+                            placeholder="Password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            className="input input-bordered input-primary flex w-full justify-stretch rounded-md max-w-sm"
+                        />
 
                         {/* Confirm Password Input */}
-                        <label className="input input-bordered input-primary w-full flex items-center gap-2 rounded-xl mt-2 bg-base-200">
-                            <input
-                                type="password"
-                                className="grow"
-                                placeholder="Confirm Password"
-                                name="confirmPassword"
-                                pattern={formData.password}
-                                title="Passwords must match"
-                                value={formData.confirmPassword}
-                                onChange={handleChange}
-                                required
-                            />
-                        </label>
+                        <div className="label">
+                            <span className="label-text">Confirm Password :</span>
+                        </div>
+                        <input 
+                            type="password"
+                            placeholder="Confirm Password"
+                            name="confirmPassword"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                            className="input input-bordered input-primary flex w-full justify-stretch rounded-md max-w-sm"
+                        />
+
+                        <div className="divider divider-primary"></div>
 
                         {/* Mobile No Input */}
-                        <label className="input input-bordered input-primary w-full flex items-center gap-2 rounded-xl mt-2 bg-base-200">
-                            <input
-                                type="tel"
-                                className="grow"
-                                placeholder="Mobile Number"
-                                name="mobileNo"
-                                inputMode="numeric"
-                                pattern="[0-9]{11}"
-                                title="Mobile number must contain exactly 11 digits"
-                                value={formData.mobileNo}
-                                onChange={handleChange}
-                                required
-                            />
-                        </label>
+                        <div className="label">
+                            <span className="label-text">Mobile Number :</span>
+                        </div>
+                        <input 
+                            type="tel"
+                            placeholder="Mobile Number"
+                            name="mobileNo"
+                            value={mobileNo}
+                            onChange={(e) => setMobileNo(e.target.value)}
+                            required
+                            className="input input-bordered input-primary flex w-full justify-stretch rounded-md max-w-sm"
+                        />
 
                         {/* Address Input */}
-                        <label className="input input-bordered input-primary w-full flex items-center gap-2 rounded-xl mt-2 bg-base-200">
-                            <input
-                                type="text"
-                                className="grow"
-                                placeholder="Address"
-                                name="address"
-                                value={formData.address}
-                                onChange={handleChange}
-                                required
-                            />
-                        </label>
+                        <div className="label">
+                            <span className="label-text">Address :</span>
+                        </div>
+                        <input 
+                            type="text"
+                            placeholder="Address"
+                            name="address"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            required
+                            className="input input-bordered input-primary flex w-full justify-stretch rounded-md max-w-sm"
+                        />
 
                         {/* Birthdate Input */}
-                        <label className="input input-bordered input-primary w-full flex items-center gap-2 rounded-xl mt-2 bg-base-200">
-                            <input
-                                type="date"
-                                className="grow"
-                                placeholder="Birthdate"
-                                name="birthdate"
-                                value={formData.birthdate}
-                                onChange={handleChange}
-                                required
-                            />
-                        </label>
+                        <div className="label">
+                            <span className="label-text">Birth Date :</span>
+                        </div>
+                        <input 
+                            type="date"
+                            placeholder="Birthdate"
+                            name="birthdate"
+                            value={birthdate}
+                            onChange={(e) => setBirthdate(e.target.value)}
+                            required
+                            className="input input-bordered input-primary flex w-full justify-stretch rounded-md max-w-sm"
+                        />
 
                         {/* Registration Error */}
-                        {registrationError && (
-                            <div className="flex text-error mt-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg>
-                            <span className="label-text text-error text-sm ml-1">{registrationError}</span> 
-                        </div>
-                    )}
+                        { registrationError && (
+                            <div className="mt-4">
+                                {registrationError}
+                            </div>
+                        )}
+                        </label>
 
-                    {/* Submit Button */}
-                    <div>
-                        <button
+                        {/* Sign up Button */}
+                        <div className="flex justify-between">
+                            <button
                             type="submit"
-                            className="btn flex w-full justify-center rounded-md bg-primary px-3 py-1.5 mt-5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                        >
+                            className="btn btn-primary flex w-full justify-center rounded-md px-3 py-1.5 mt-5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" 
+                            >
                             Sign up
-                        </button>
+                            </button>
+                        </div>
+                        
                     </div>
-
                 </form>
 
             </div>
         </div>
-    </>
-  );
+    );
 }

@@ -169,7 +169,6 @@ export default function AppNavbar() {
                     onClick={() => setOpen(false)}
                   >
                     <span className="absolute -inset-0.5" />
-                    <span className="sr-only">Close menu</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
@@ -183,7 +182,7 @@ export default function AppNavbar() {
                           key={category.name}
                           className={({ selected }) =>
                             classNames(
-                              selected ? 'border-indigo-600 text-indigo-600' : 'border-transparent',
+                              selected ? 'border-primary text-primary' : 'border-transparent',
                               'flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium'
                             )
                           }
@@ -224,7 +223,7 @@ export default function AppNavbar() {
                             >
                               {section.items.map((item) => (
                                 <li key={item.name} className="flow-root">
-                                  <a href={item.href} className="-m-2 block p-2 text-gray-500">
+                                  <a href={item.href} className="-m-2 block p-2 text-content opacity-80 hover:text-primary">
                                     {item.name}
                                   </a>
                                 </li>
@@ -239,7 +238,7 @@ export default function AppNavbar() {
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   {navigation.pages.map((page) => (
-                    <div key={page.name} className="flow-root">
+                    <div key={page.name} className="flow-root hover:text-primary">
                       <a href={page.href} className="-m-2 block p-2 font-medium">
                         {page.name}
                       </a>
@@ -247,6 +246,7 @@ export default function AppNavbar() {
                   ))}
                 </div>
 
+                { !isAuthenticated && (
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
                     <a href="/login" className="-m-2 block p-2 font-medium">
@@ -259,6 +259,7 @@ export default function AppNavbar() {
                     </a>
                   </div>
                 </div>
+                )}
 
                 {/* <div className="border-t border-gray-200 px-4 py-6">
                   <a href="#" className="-m-2 flex items-center p-2">

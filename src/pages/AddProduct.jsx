@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 
 export default function AddProduct() {
@@ -14,11 +15,13 @@ export default function AddProduct() {
     const [isActive, setIsActive] = useState(false);
     const [isFeatured, setIsFeatured] = useState(false);
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const token = localStorage.getItem('token');
+
     const addProduct = async (e) => {
         e.preventDefault();
         try {
-            let token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:4003/b3/products/', {
+            const response = await fetch(`${apiUrl}}/b3/products/`, {
                 method: 'POST',
 			    headers: {
                     "Content-Type": "application/json",
@@ -38,8 +41,6 @@ export default function AddProduct() {
             const data = await response.json();
 
             if (response.ok) {
-                alert("Product successfully created")
-
                 setName('');
                 setDescription('');
                 setCategory('');
@@ -49,13 +50,14 @@ export default function AddProduct() {
                 setIsActive(false);
                 setIsFeatured(false);
 
+                toast.success(`Product successfully created`);
                 navigate("/dashboard");
             } else {
-                alert(data.message);
+                toast.warn(data.message);
             }
         } catch (err) {
-            console.error(err);
-            alert("Internal Server Error")
+            console.error('Error occurred while adding product: ', err);
+            toast.error('Internal Server Error!');
         }
     };
 
@@ -64,7 +66,7 @@ export default function AddProduct() {
             <div className="space-y-12 pt-10 px-5 sm:px-20">
                 <div className="border-b border-gray-900/10">
 
-                    <h2 className="text-3xl font-bold text-center text-primary">Add Product</h2>
+                    <h2 className="text-3xl font-bold text-center text-primary">ADD PRODUCT</h2>
 
                     <div className="divider divider-primary my-5"></div>
 
@@ -131,12 +133,23 @@ export default function AddProduct() {
                                     required
                                 >
                                     <option className="text-gray-400">Select Category</option>
-                                    <option>Desktop</option>
-                                    <option>Laptop</option>
-                                    <option>Tablet</option>
-                                    <option>Mouse</option>
-                                    <option>Keyboard</option>
-                                    <option>Headset</option>
+                                    {/* Clothing */}
+                                    <option disabled="true" className="text-gray-400">Clothing:</option>
+                                    <option>Tops</option>
+                                    <option>Shirts</option>
+                                    <option>Sweaters</option>
+                                    <option>Jackets</option>
+                                    <option>Bottoms</option>
+                                    <option>Pants</option>
+                                    <option>Shorts</option>
+                                    {/* Accessories */}
+                                    <option disabled="true" className="text-gray-400">Accessories:</option>
+                                    <option>Watches</option>
+                                    <option>Bags</option>
+                                    <option>Hats</option>
+                                    <option>Gloves</option>
+                                    <option>Socks</option>
+                                    <option>Belts</option>
                                 </select>
                             </div>
                         </div>
@@ -255,12 +268,12 @@ export default function AddProduct() {
             </div>
 
             <div className="mt-0 flex items-center justify-end gap-x-6 px-20 pb-20">
-                <button href="/dashboard" type="button" className="text-sm font-semibold leading-6 hover:text-primary">
+                <button href="/dashboard" type="button" className="text-md font-semibold leading-6 hover:text-primary">
                 Cancel
                 </button>
                 <button
                     type="submit"
-                    className="btn btn-primary rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    className="btn btn-md btn-primary rounded-md px-6 py-2 text-md font-semibold text-white shadow-sm hover:btn-secondary hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 >
                 Save
                 </button>

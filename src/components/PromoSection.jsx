@@ -5,11 +5,10 @@ export default function PromoSection() {
         <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
           <div className="sm:max-w-lg">
             <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-              Summer styles are finally here
+              Chill N Cozy styles are finally here
             </h1>
-            <p className="mt-4 text-xl opacity-90">
-              This year, our new summer collection will shelter you from the harsh elements of a world that doesn't care
-              if you live or die.
+            <p className="mt-6 text-xl opacity-90">
+              A refreshing look into our most casual style collection that will surely give you a feel of a warm embrace a breathe of fresh air.
             </p>
           </div>
           <div>
@@ -64,14 +63,12 @@ export default function PromoSection() {
                       <div className="h-64 w-44 overflow-hidden rounded-lg">
                         <img
                           src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-06.jpg"
-                          alt=""
                           className="h-full w-full object-cover object-center"
                         />
                       </div>
                       <div className="h-64 w-44 overflow-hidden rounded-lg">
                         <img
                           src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg"
-                          alt=""
                           className="h-full w-full object-cover object-center"
                         />
                       </div>
@@ -91,5 +88,5 @@ export default function PromoSection() {
         </div>
       </div>
     </div>
-  )
+  );
 }
