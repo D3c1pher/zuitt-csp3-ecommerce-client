@@ -106,7 +106,7 @@ export default function App() {
               {/* ADMIN ACCESS DASHBOARD PAGES */}
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/product/add" element={<AddProduct />} />
-              <Route path="/dashboard/product/:productId" element={<EditProduct />} />
+              <Route path="/dashboard/edit-product/:productId" element={<EditProduct />} />
 
                {/* ERROR PAGES */}
                <Route path="/*" element={<NotFound />} />

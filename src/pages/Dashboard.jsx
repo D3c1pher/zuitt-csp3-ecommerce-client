@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link, Navigate } from "react-router-dom";
 import ArchiveProduct from '../components/ArchiveProduct';
 import SetUserRole from '../components/SetUserRole';
@@ -104,9 +104,9 @@ export default function Dashboard() {
 
     const DashboardTabs = ({ selectedTab, handleTabChange }) => {
         return (
-            <nav className="w-full h-full bg-neutral text-white py-5">
-                <div className="container mx-auto flex justify-evenly">
-                    <label className="block cursor-pointer">
+            <nav className="w-full h-full bg-neutral text-white pt-5 pb-0">
+                <div className="container mx-auto flex text-center justify-evenly">
+                    <label className="block cursor-pointer w-full">
                         <input
                             type="radio"
                             className="hidden"
@@ -115,11 +115,12 @@ export default function Dashboard() {
                             checked={selectedTab === 'products'}
                             onChange={() => handleTabChange('products')}
                         />
-                        <span className={`px-6 py-3 rounded-lg hover:bg-primary/70 ${selectedTab === 'products' ? 'bg-primary' : ''}`}>
+                        <span className={`font-black px-6 py-5 ${selectedTab === 'products' ? 'text-primary' : 'hover:text-primary/80'}`}>
                             Products
                         </span>
+                        <div className={`bg-primary mt-3 ${selectedTab === 'products' ? 'block text-primary' : 'hidden hover:bg-primary/80 hover:text-primary/80'} h-2`} />
                     </label>
-                    <label className="block cursor-pointer">
+                    <label className="block cursor-pointer w-full">
                         <input
                             type="radio"
                             className="hidden"
@@ -128,11 +129,12 @@ export default function Dashboard() {
                             checked={selectedTab === 'users'}
                             onChange={() => handleTabChange('users')}
                         />
-                        <span className={`px-6 py-3 rounded-lg hover:bg-primary/70 ${selectedTab === 'users' ? 'bg-primary' : ''}`}>
+                        <span className={`font-black px-6 py-5 ${selectedTab === 'users' ? 'text-primary' : 'hover:text-primary/80'}`}>
                             Users
                         </span>
+                        <div className={`bg-primary mt-3 ${selectedTab === 'users' ? 'block text-primary' : 'hidden hover:bg-primary/80 hover:text-primary/80'} h-2`} />
                     </label>
-                    <label className="block cursor-pointer">
+                    <label className="block cursor-pointer w-full">
                         <input
                             type="radio"
                             className="hidden"
@@ -141,9 +143,10 @@ export default function Dashboard() {
                             checked={selectedTab === 'orders'}
                             onChange={() => handleTabChange('orders')}
                         />
-                        <span className={`px-6 py-3 rounded-lg hover:bg-primary/70 ${selectedTab === 'orders' ? 'bg-primary' : ''}`}>
+                        <span className={`font-black px-6 py-5 ${selectedTab === 'orders' ? 'text-primary' : 'hover:text-primary/80'}`}>
                             Orders
                         </span>
+                        <div className={`bg-primary mt-3 ${selectedTab === 'orders' ? 'block text-primary' : 'hidden hover:bg-primary/80 hover:text-primary/80'} h-2`} />
                     </label>
                 </div>
             </nav>
@@ -156,7 +159,7 @@ export default function Dashboard() {
 				{tab === 'products' && (
 					<>
                        <div className=" flex lg:ml-4 lg:mt-0 items-center justify-between mb-5">
-                            <h2 className="text-2xl sm:text-3xl text-primary text-center font-bold flex-grow sm:ml-20">Product Dashboard</h2>
+                            <h2 className="text-2xl sm:text-3xl text-primary text-center font-bold flex-grow sm:ml-36">Product Dashboard</h2>
                             <span className="sm:block mr-5">
                                 <Link
                                     to="/dashboard/product/add"
@@ -167,8 +170,6 @@ export default function Dashboard() {
                             </span>
                         </div>
 
-                 
-					
 						<div className="overflow-x-auto">
 							<table className="table table-zebra">
 								<thead>
@@ -193,10 +194,9 @@ export default function Dashboard() {
 												{product.isActive ? "Available" : "Unavailable"}
 											</td>
 											<td>
-                                                {/* Link Button to edit-product */}
                                                 <Link to={`/dashboard/edit-product/${product._id}`} className="btn btn-primary hover:btn-secondary">
-                                                    <svg className="-ml-0.5 md:mr-1.5 h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.695 14.763l-1.262 3.154a.5.5 0 00.65.65l3.155-1.262a4 4 0 001.343-.885L17.5 5.5a2.121 2.121 0 00-3-3L3.58 13.42a4 4 0 00-.885 1.343z" /></svg>
-                                                    <span className="hidden md:block text-white">Edit</span>
+                                                    <svg className="-ml-0.5 xl:mr-1.5 h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.695 14.763l-1.262 3.154a.5.5 0 00.65.65l3.155-1.262a4 4 0 001.343-.885L17.5 5.5a2.121 2.121 0 00-3-3L3.58 13.42a4 4 0 00-.885 1.343z" /></svg>
+                                                    <span className="hidden xl:block text-white">Edit</span>
                                                 </Link>
 											</td>
 											<td>
@@ -217,14 +217,6 @@ export default function Dashboard() {
                     <>
                         <div className=" flex lg:ml-4 lg:mt-0 items-center justify-center mb-5">
                             <h2 className="text-2xl sm:text-3xl text-primary text-center font-bold">User Dashboard</h2>
-                            {/* <span className="sm:block mr-5">
-                                <Link
-                                    to="/dashboard/add-product"
-                                    className="btn inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                                    <svg className="-ml-0.5 sm:mr-1.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.695 14.763l-1.262 3.154a.5.5 0 00.65.65l3.155-1.262a4 4 0 001.343-.885L17.5 5.5a2.121 2.121 0 00-3-3L3.58 13.42a4 4 0 00-.885 1.343z" /></svg>
-                                    <span className="hidden sm:block">Add Product</span>
-                                </Link>
-                            </span> */}
                         </div>
 
                         <div className="overflow-x-auto">
@@ -251,7 +243,6 @@ export default function Dashboard() {
                                                 {user.isAdmin ? "Admin" : "Customer"}
                                             </td>
                                             <td>
-                                               {/* Temporary Button */}
                                                 <SetUserRole 
                                                     user={user._id} 
                                                     isAdmin={user.isAdmin} 
@@ -259,12 +250,10 @@ export default function Dashboard() {
                                                 />
                                             </td>
                                             <td>
-                                               {/* Temporary Button */}
-                                                <ArchiveProduct 
-                                                    product={user._id} 
-                                                    isActive={user.isActive} 
-                                                    fetchUsers={fetchProducts}
-                                                />
+                                                <Link to={`/profile/${user._id}`} className="btn btn-primary hover:btn-secondary">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="-ml-0.5 xl:mr-1.5 h-5 w-5 text-white"><path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clipRule="evenodd" /></svg>
+                                                    <span className="hidden xl:block text-white">View Info</span>
+                                                </Link>
                                             </td>
                                         </tr>
                                     ))}
@@ -276,55 +265,49 @@ export default function Dashboard() {
 				{tab === 'orders' && (
 				<>
 					<div className=" flex lg:ml-4 lg:mt-0 items-center justify-between mb-5">
-                        <h2 className="text-2xl sm:text-3xl text-primary text-center font-bold flex-grow sm:ml-20">Order Dashboard</h2>
-                        {/* <span className="sm:block mr-5">
-                             <Link
-                                 to="/dashboard/add-product"
-                                 className="btn inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                                 <svg className="-ml-0.5 sm:mr-1.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.695 14.763l-1.262 3.154a.5.5 0 00.65.65l3.155-1.262a4 4 0 001.343-.885L17.5 5.5a2.121 2.121 0 00-3-3L3.58 13.42a4 4 0 00-.885 1.343z" /></svg>
-                                 <span className="hidden sm:block">Add Product</span>
-                             </Link>
-                         </span> */}
+                        <h2 className="text-2xl sm:text-3xl text-primary text-center font-bold flex-grow">Order Dashboard</h2>
                     </div>
 
                     <div className="overflow-x-auto">
-                        <table className="table table-zebra">
+                        <table className="table">
                             <thead>
                                 <tr className="text-center bg-neutral text-neutral-content">
                                     <th>ID</th>
                                     <th>User</th>
                                     <th>Status</th>
                                     <th>Items</th>
-                                    <th>Availability</th>
-                                    <th colSpan="2">Actions</th>
                                 </tr>
                             </thead>
  
                             <tbody>
-                                {orders.map(order => (
-                                    <tr key={order._id} className="hover text-center">
+                                { orders.map(order => (
+                                    <>
+                                    <tr key={order._id} className="text-center bg-base-200 hover:bg-base-300">
                                         <td>{order._id}</td>
                                         <td>{order.userId.email}</td>
-                                        <td>{order.status}</td>
-                                        <td>₱{order.totalPrice}</td>
-                                        {/* <td className={order.isActive ? "text-success" : "text-danger"}>
-                                             {order.isActive ? "Available" : "Unavailable"}
-                                        </td> */}
-                                        <td>
-                                             {/* Link Button to edit-product */}
-                                             {/* <Link to={`/dashboard/edit-product/${product._id}`} className="btn btn-primary hover:btn-secondary">
-                                                 <svg className="-ml-0.5 md:mr-1.5 h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.695 14.763l-1.262 3.154a.5.5 0 00.65.65l3.155-1.262a4 4 0 001.343-.885L17.5 5.5a2.121 2.121 0 00-3-3L3.58 13.42a4 4 0 00-.885 1.343z" /></svg>
-                                                 <span className="hidden md:block text-white">Edit</span>
-                                             </Link> */}
-                                        </td>
-                                        <td>
-                                             {/* <ArchiveProduct 
-                                                 product={product._id} 
-                                                 isActive={product.isActive} 
-                                                 fetchProducts={fetchProducts}
-                                             /> */}
+                                        <td className="text-success">{order.status}</td>
+                                        <td>₱ {order.totalPrice}</td>
+                                    </tr>
+                                    <tr className="hover:bg-base-300">
+                                        <td colSpan="6">
+                                            <p className="text-sm font-bold sm:ml-10">Purchased Items :</p>
+                                            <ul className="list-disc text-sm ml-20 mt-2">
+                                                {order.productsOrdered.map(item => {
+                                                    const product = products.find(product => product._id === item.productId);
+                                                    if (product) {
+                                                        return (
+                                                            <li key={item._id}>
+                                                                <p>{product.name} - Quantity: {product.quanity}</p>
+                                                            </li>
+                                                        );
+                                                    } else {
+                                                        return null;
+                                                    }
+                                                })}
+                                            </ul>
                                         </td>
                                     </tr>
+                                    </>
                                 ))}
                             </tbody>
                         </table>
@@ -334,15 +317,15 @@ export default function Dashboard() {
 			</div>
 		);
 	}
-
-    return (
-        isAdmin ? (
+    
+    if (isAdmin) {
+        return (
             <>
-              <DashboardTabs selectedTab={selectedTab} handleTabChange={handleTabChange} />
-              <DashboardContent tab={selectedTab} />
+                <DashboardTabs selectedTab={selectedTab} handleTabChange={handleTabChange} />
+                <DashboardContent tab={selectedTab} />
             </>
-        ) : (
-            <Navigate to="/shop" />
-        )
-    );
+        );
+    } else {
+        // return <Navigate to="/shop" />;
+    }
 }

@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'; 
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
-import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon, UserIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, ShoppingBagIcon, XMarkIcon, UserIcon } from '@heroicons/react/24/outline'
 import UserContext from "../UserContext";
 import LogoImg from '../assets/inspired-weaver-logo-color.png'
 
@@ -249,29 +249,17 @@ export default function AppNavbar() {
                 { !isAuthenticated && (
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
-                    <a href="/login" className="-m-2 block p-2 font-medium">
+                    <a href="/login" className="-m-2 block p-2 font-medium hover:text-primary">
                       Sign in
                     </a>
                   </div>
                   <div className="flow-root">
-                    <a href="/register" className="-m-2 block p-2 font-medium">
+                    <a href="/register" className="-m-2 block p-2 font-medium hover:text-primary">
                       Sign up
                     </a>
                   </div>
                 </div>
                 )}
-
-                {/* <div className="border-t border-gray-200 px-4 py-6">
-                  <a href="#" className="-m-2 flex items-center p-2">
-                    <img
-                      src="https://tailwindui.com/img/flags/flag-canada.svg"
-                      alt=""
-                      className="block h-auto w-5 flex-shrink-0"
-                    />
-                    <span className="ml-3 block text-base font-medium">CAD</span>
-                    <span className="sr-only">, change currency</span>
-                  </a>
-                </div> */}
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -418,26 +406,6 @@ export default function AppNavbar() {
                   </div>
                 )}
 
-                {/* <div className="hidden lg:ml-8 lg:flex">
-                  <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
-                    <img
-                      src="https://tailwindui.com/img/flags/flag-canada.svg"
-                      alt=""
-                      className="block h-auto w-5 flex-shrink-0"
-                    />
-                    <span className="ml-3 block text-sm font-medium">CAD</span>
-                    <span className="sr-only">, change currency</span>
-                  </a>
-                </div> */}
-
-                {/* Search */}
-                {/* <div className="flex lg:ml-6">
-                  <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">Search</span>
-                    <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
-                  </a>
-                </div> */}
-
                 {/* Theme Button */}
                 <div className="flex lg:ml-6">
                   <label className="swap swap-rotate btn btn-ghost btn-circle">
@@ -475,15 +443,25 @@ export default function AppNavbar() {
                   <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                     <li>
                         <Link 
-                            to="/settings"
+                            to="/profile"
                             className="justify-between"
                         >
                             Profile
                             <span className="badge">New</span>
                         </Link>
                     </li>
-                    <li><Link to="/billing">Billing</Link></li>
-                    <li><Link to="/my-orders">Orders</Link></li>
+                    <li><Link to="/account">Account</Link></li>
+                    {
+                      isAdmin ? (
+                        <li>
+                          <Link to="/dashboard">Dashboard</Link>
+                        </li>
+                      ) : (
+                        <li>
+                          <Link to="/my-orders">Orders</Link>
+                        </li>
+                      )
+                    }
                     <li><Link to="/logout">Logout</Link></li>
                   </ul>
                 </div>

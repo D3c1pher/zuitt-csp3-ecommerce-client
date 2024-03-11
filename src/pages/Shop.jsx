@@ -13,19 +13,35 @@ const sortOptions = [
   { name: 'Price: High to Low', href: '#', current: false },
 ]
 const subCategories = [
-  { name: 'New Products', href: '#' },
+  { name: 'New Arrivals', href: '#' },
   { name: 'Featured Products', href: '#' },
   { name: 'On Sale Products', href: '#' },
+  { name: 'Special Promos', href: '#' },
 ]
 const filters = [
   {
-    id: 'category',
-    name: 'Category',
+    id: 'clothing',
+    name: 'Clothing',
     options: [
-      { value: 'desktop', label: 'Desktop', checked: false },
-      { value: 'laptop', label: 'Laptop', checked: false },
-      { value: 'tablet', label: 'Tablet', checked: true },
-      { value: 'phone', label: 'Phone', checked: false },
+      { name: 'Tops', label: 'Tops', checked: false },
+      { name: 'Shirts', label: 'Shirts', checked: false },
+      { name: 'Sweaters', label: 'Sweaters', checked: false },
+      { name: 'Jackets', label: 'Jackets', checked: false },
+      { name: 'Bottoms', label: 'Bottoms', checked: false },
+      { name: 'Pants', label: 'Pants', checked: false },
+      { name: 'Shorts', label: 'Shorts', checked: false },
+    ],
+  },
+  {
+    id: 'accessories',
+    name: 'Accessories',
+    options: [
+      { name: 'Watches', label: 'Watches', checked: false },
+      { name: 'Bags', label: 'Bags', checked: false },
+      { name: 'Hats', label: 'Hats', checked: false },
+      { name: 'Gloves', label: 'Gloves', checked: false },
+      { name: 'Socks', label: 'Socks', checked: false },
+      { name: 'Belts', label: 'Belts', checked: false },
     ],
   },
 ]
@@ -106,7 +122,7 @@ export default function Shop({productsData}) {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-base-100 py-4 pb-12 shadow-xl">
+                <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-base-100 py-32 pb-12 shadow-xl">
                   <div className="flex items-center justify-between px-4">
                     <h2 className="text-lg font-medium">Filters</h2>
                     <button
@@ -120,7 +136,7 @@ export default function Shop({productsData}) {
 
                   {/* Filters */}
                   <form className="mt-4 border-t border-gray-200">
-                    <ul role="list" className="px-2 py-3 font-medium">
+                    <ul role="list" className="px-2 font-medium">
                       {subCategories.map((category) => (
                         <li key={category.name}>
                           <a href={category.href} className="block px-2 py-3">
@@ -130,8 +146,10 @@ export default function Shop({productsData}) {
                       ))}
                     </ul>
 
+                    <div className="divider divider-primary px-5 opacity-60"></div>
+
                     {filters.map((section) => (
-                      <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
+                      <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-4">
                         {({ open }) => (
                           <>
                             <h3 className="-mx-2 -my-3 flow-root">
@@ -146,6 +164,9 @@ export default function Shop({productsData}) {
                                 </span>
                               </Disclosure.Button>
                             </h3>
+
+                            <div className="divider divider-primary opacity-60"></div>
+
                             <Disclosure.Panel className="pt-6">
                               <div className="space-y-6">
                                 {section.options.map((option, optionIdx) => (

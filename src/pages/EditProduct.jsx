@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 
 export default function EditProduct() {
@@ -15,15 +16,21 @@ export default function EditProduct() {
     const [isActive, setIsActive] = useState(false);
     const [isFeatured, setIsFeatured] = useState(false);
 
+    const token = localStorage.getItem('token');
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     useEffect(() => {
         const fetchProductData = async () => {
             try {
-                const response = await fetch(`http://localhost:4003/b3/products/${productId}`);
+                const response = await fetch(`${apiUrl}/b3/products/${productId}`);
+
                 if (!response.ok) {
+                    toast.error('Failed to fetch product data');
                     throw new Error('Failed to fetch product data');
                 }
+
                 const data = await response.json();
-				console.log(data.product);
+
                 setName(data.product.name);
                 setDescription(data.product.description);
                 setCategory(data.product.category.name);
@@ -32,8 +39,9 @@ export default function EditProduct() {
                 setImages(data.product.images);
                 setIsActive(data.product.isActive);
                 setIsFeatured(data.product.isFeatured);
-            } catch (error) {
-                console.error('Error fetching product data:', error);
+            } catch (err) {
+                console.error('Error in fetching product data: ', err);
+                toast.error('Internal Server Error!');
             }
         };
         fetchProductData();
@@ -42,8 +50,7 @@ export default function EditProduct() {
     const editProduct = async (e) => {
         e.preventDefault();
         try {
-            let token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:4003/b3/products/${productId}`, {
+            const response = await fetch(`${apiUrl}/b3/products/${productId}`, {
                 method: 'PUT',
                 headers: {
                     "Content-Type": "application/json",
@@ -63,14 +70,14 @@ export default function EditProduct() {
             const data = await response.json();
 
             if (response.ok) {
-                alert("Product successfully updated")
+                toast.success('Product successfully updated');
                 navigate("/dashboard");
             } else {
-                alert(data.message);
+                toast.warn(data.message);
             }
         } catch (err) {
-            console.error(err);
-            alert("Internal Server Error")
+            console.error('Error in editing product data: ', err);
+            toast.error('Internal Server Error!');
         }
     };
 	
@@ -145,13 +152,24 @@ export default function EditProduct() {
                                     className="block w-full rounded-md border-0 bg-transparent py-2 px-2 shadow-sm ring-1 ring-inset ring-primary placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                                     required
                                 >
-                                    <option className="text-gray-400" value="" disabled>Select Category</option>
-									<option value="Desktop">Desktop</option>
-									<option value="Laptop">Laptop</option>
-									<option value="Tablet">Tablet</option>
-									<option value="Mouse">Mouse</option>
-									<option value="Keyboard">Keyboard</option>
-									<option value="Headset">Headset</option>
+                                    <option className="text-gray-400" value="">Select Category</option>
+                                    {/* Clothing */}
+                                    <option disabled="true" className="text-gray-400">Clothing:</option>
+                                    <option value="Tops">Tops</option>
+                                    <option value="Shirts">Shirts</option>
+                                    <option value="Sweaters">Sweaters</option>
+                                    <option value="Jackets">Jackets</option>
+                                    <option value="Bottoms">Bottoms</option>
+                                    <option value="Pants">Pants</option>
+                                    <option value="Shorts">Shorts</option>
+                                    {/* Accessories */}
+                                    <option disabled="true" className="text-gray-400">Accessories:</option>
+                                    <option value="Watches">Watches</option>
+                                    <option value="Bags">Bags</option>
+                                    <option value="Hats">Hats</option>
+                                    <option value="Gloves">Gloves</option>
+                                    <option value="Socks">Socks</option>
+                                    <option value="Belts">Belts</option>
                                 </select>
                             </div>
                         </div>

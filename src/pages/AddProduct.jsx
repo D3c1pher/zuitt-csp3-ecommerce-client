@@ -132,24 +132,24 @@ export default function AddProduct() {
                                     className="block w-full rounded-md border-0 bg-transparent py-2 px-2 shadow-sm ring-1 ring-inset ring-primary placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                                     required
                                 >
-                                    <option className="text-gray-400">Select Category</option>
+                                    <option className="text-gray-400" value="">Select Category</option>
                                     {/* Clothing */}
                                     <option disabled="true" className="text-gray-400">Clothing:</option>
-                                    <option>Tops</option>
-                                    <option>Shirts</option>
-                                    <option>Sweaters</option>
-                                    <option>Jackets</option>
-                                    <option>Bottoms</option>
-                                    <option>Pants</option>
-                                    <option>Shorts</option>
+                                    <option value="Tops">Tops</option>
+                                    <option value="Shirts">Shirts</option>
+                                    <option value="Sweaters">Sweaters</option>
+                                    <option value="Jackets">Jackets</option>
+                                    <option value="Bottoms">Bottoms</option>
+                                    <option value="Pants">Pants</option>
+                                    <option value="Shorts">Shorts</option>
                                     {/* Accessories */}
                                     <option disabled="true" className="text-gray-400">Accessories:</option>
-                                    <option>Watches</option>
-                                    <option>Bags</option>
-                                    <option>Hats</option>
-                                    <option>Gloves</option>
-                                    <option>Socks</option>
-                                    <option>Belts</option>
+                                    <option value="Watches">Watches</option>
+                                    <option value="Bags">Bags</option>
+                                    <option value="Hats">Hats</option>
+                                    <option value="Gloves">Gloves</option>
+                                    <option value="Socks">Socks</option>
+                                    <option value="Belts">Belts</option>
                                 </select>
                             </div>
                         </div>
