@@ -106,6 +106,10 @@ export default function Dashboard() {
         fetchOrders();
     }, []);
 
+    const WorkInProgress = () => {
+        toast.info('Work In Progress');
+    }
+
     const DashboardTabs = ({ selectedTab, handleTabChange }) => {
         return (
             <nav className="w-full h-full bg-neutral text-white pt-5 pb-0">
@@ -193,7 +197,7 @@ export default function Dashboard() {
 											<td>{product._id}</td>
 											<td>{product.name}</td>
 											<td className="px-8 max-w-xs md:max-w-md truncate">{product.description}</td>
-											<td>{product.price}</td>
+											<td>₱{product.price.toFixed(2)}</td>
 											<td className={product.isActive ? "text-success" : "text-danger"}>
 												{product.isActive ? "Available" : "Unavailable"}
 											</td>
@@ -254,10 +258,10 @@ export default function Dashboard() {
                                                 />
                                             </td>
                                             <td>
-                                                <Link to={`/profile/${user._id}`} className="btn btn-primary hover:btn-secondary">
+                                                <a onClick={WorkInProgress} className="btn btn-primary hover:btn-secondary">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="-ml-0.5 xl:mr-1.5 h-5 w-5 text-white"><path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clipRule="evenodd" /></svg>
                                                     <span className="hidden xl:block text-white">View Info</span>
-                                                </Link>
+                                                </a>
                                             </td>
                                         </tr>
                                     ))}
@@ -279,7 +283,7 @@ export default function Dashboard() {
                                     <th>ID</th>
                                     <th>User</th>
                                     <th>Status</th>
-                                    <th>Items</th>
+                                    <th>Total</th>
                                 </tr>
                             </thead>
  
@@ -290,7 +294,7 @@ export default function Dashboard() {
                                         <td>{order._id}</td>
                                         <td>{order.userId.email}</td>
                                         <td className="text-success">{order.status}</td>
-                                        <td>₱ {order.totalPrice}</td>
+                                        <td>₱ {order.totalPrice.toFixed(2)}</td>
                                     </tr>
                                     <tr className="hover:bg-base-300">
                                         <td colSpan="6">
@@ -301,7 +305,7 @@ export default function Dashboard() {
                                                     if (product) {
                                                         return (
                                                             <li key={item._id}>
-                                                                <p>{product.name} - Quantity : {item.quantity}</p>
+                                                                <p>{product.name} - Qty : {item.quantity}</p>
                                                             </li>
                                                         );
                                                     } else {

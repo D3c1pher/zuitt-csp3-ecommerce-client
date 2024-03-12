@@ -92,6 +92,7 @@ export default function AddProduct() {
                                         type="file" className="sr-only" 
                                         value={images}
                                         onChange={(e) => setImages(e.target.value)} 
+                                        disabled
                                     />
                                     </label>
                                     <p className="pl-1">or drag and drop</p>
@@ -136,21 +137,21 @@ export default function AddProduct() {
                                     <option className="text-gray-400" value="">Select Category</option>
                                     {/* Clothing */}
                                     <option disabled="true" className="text-gray-400">Clothing:</option>
-                                    <option value="Tops">Tops</option>
-                                    <option value="Shirts">Shirts</option>
-                                    <option value="Sweaters">Sweaters</option>
-                                    <option value="Jackets">Jackets</option>
-                                    <option value="Bottoms">Bottoms</option>
-                                    <option value="Pants">Pants</option>
-                                    <option value="Shorts">Shorts</option>
+                                    <option value="Tops" className="text-gray-900">Tops</option>
+                                    <option value="Shirts" className="text-gray-900">Shirts</option>
+                                    <option value="Sweaters" className="text-gray-900">Sweaters</option>
+                                    <option value="Jackets" className="text-gray-900">Jackets</option>
+                                    <option value="Bottoms" className="text-gray-900">Bottoms</option>
+                                    <option value="Pants" className="text-gray-900">Pants</option>
+                                    <option value="Shorts" className="text-gray-900">Shorts</option>
                                     {/* Accessories */}
                                     <option disabled="true" className="text-gray-400">Accessories:</option>
-                                    <option value="Watches">Watches</option>
-                                    <option value="Bags">Bags</option>
-                                    <option value="Hats">Hats</option>
-                                    <option value="Gloves">Gloves</option>
-                                    <option value="Socks">Socks</option>
-                                    <option value="Belts">Belts</option>
+                                    <option value="Watches" className="text-gray-900">Watches</option>
+                                    <option value="Bags" className="text-gray-900">Bags</option>
+                                    <option value="Hats" className="text-gray-900">Hats</option>
+                                    <option value="Gloves" className="text-gray-900">Gloves</option>
+                                    <option value="Socks" className="text-gray-900">Socks</option>
+                                    <option value="Belts" className="text-gray-900">Belts</option>
                                 </select>
                             </div>
                         </div>
