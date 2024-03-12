@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export default function UserProfile() {
@@ -32,10 +32,6 @@ export default function UserProfile() {
 
     fetchUserData();
   }, []);
-
-  if (!details._id) {
-    return <Navigate to="/401" />;
-  }
 
   return (
     <div className="py-10 sm:px-20 my-5 sm:mx-10">

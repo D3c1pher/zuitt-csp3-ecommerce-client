@@ -1,38 +1,8 @@
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 export default function CartItemCard({cartItemProp, removeFromCart}) {
 	const { productId, subtotal } = cartItemProp;
 	const { _id, name, description } = productId;
-
-  // const token = localStorage.getItem('token');
-  // const apiUrl = process.env.REACT_APP_API_URL;
-
-  // const removeFromCart = async (_id) => {
-  //   try {
-  //     const response = await fetch(`${apiUrl}/b3/cart/${_id}/removeFromCart`, {
-  //       method: 'DELETE',
-  //       headers: {
-  //         Authorization: `Bearer ${token}`
-  //       }
-  //     });
-  //     const data = await response.json();
-
-  //     console.log(data);
-
-  //     if (response.ok) {
-  //       setCart(data.cart);
-  //       setTotal(data.cart.totalPrice);
-  //       toast.info('Product removed from cart');
-  //     } else {
-  //       toast.error(data.message);
-  //     }
-
-  //   } catch (err) {
-  //     console.error('Error removing product from cart: ', err);
-  //     toast.error('Internal Server Error!');
-  //   }
-  // };
 
   return (
     <div className="card bg-white shadow-xl group relative overflow-hidden rounded-xl grid grid-cols-2 sm:grid-cols-5 items-center">

@@ -65,7 +65,7 @@ export default function MyOrders() {
               </div>
             </div>
           ) : (
-            <div className="texture px-4 sm:px-6 lg:px-10 bg-base-100">
+            <div className="texture px-4 sm:px-6 lg:px-10 bg-base-100 pb-20">
 
               {/* Cart Title */}
               <h1 className="text-5xl font-black tracking-wider text-primary pt-10 px-5 text-center">ORDER HISTORY</h1>
