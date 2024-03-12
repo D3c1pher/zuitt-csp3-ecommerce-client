@@ -15,7 +15,7 @@ export default function AddProduct() {
     const [isActive, setIsActive] = useState(false);
     const [isFeatured, setIsFeatured] = useState(false);
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
     const token = localStorage.getItem('token');
 
     const addProduct = async (e) => {

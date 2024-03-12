@@ -13,7 +13,7 @@ export default function Login() {
   const [passwordError, setpasswordError] = useState('');
   const [isForbidden, setIsForbidden] = useState(false);
 
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
   const authenticate = async (e) => {
     e.preventDefault();

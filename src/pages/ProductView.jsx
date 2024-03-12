@@ -54,7 +54,7 @@ export default function ProductView() {
   const isAuthenticated = user && user.id !== null;
 
   const token = localStorage.getItem('token');
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const fetchProduct = async () => {

@@ -6,7 +6,7 @@ export default function Checkout() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem('token');
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
   const handleCheckout = async () => {
     try {

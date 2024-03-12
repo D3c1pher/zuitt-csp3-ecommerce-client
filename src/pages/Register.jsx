@@ -18,7 +18,7 @@ export default function Register() {
     const registerUser = async (e) => {
         e.preventDefault();
 
-        const apiUrl = process.env.REACT_APP_API_URL;
+        const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
         try {
             const response = await fetch(`${apiUrl}/users/`, {

@@ -18,7 +18,7 @@ export default function Dashboard() {
     };
 
     const token = localStorage.getItem('token');
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
     const isAdmin = user && user.id !== null && user.isAdmin; 
 

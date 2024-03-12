@@ -53,7 +53,7 @@ const posts = [
   }
 ]
 
-export default function Example() {
+export default function Discover() {
   return (
     <div className="bg-base-100 pt-28 pb-36">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">

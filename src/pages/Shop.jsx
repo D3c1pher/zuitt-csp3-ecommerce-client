@@ -62,7 +62,7 @@ export default function Shop({productsData}) {
     const fetchProducts = async () => {
 
       const token = localStorage.getItem('token');
-      const apiUrl = process.env.REACT_APP_API_URL;
+      const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
       try {
         const response = await fetch(`${apiUrl}/products/active`, {

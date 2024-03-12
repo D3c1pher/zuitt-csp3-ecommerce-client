@@ -17,7 +17,7 @@ export default function EditProduct() {
     const [isFeatured, setIsFeatured] = useState(false);
 
     const token = localStorage.getItem('token');
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
     useEffect(() => {
         const fetchProductData = async () => {

@@ -16,7 +16,7 @@ export default function Cart() {
   const isAdmin = isAuthorized && user.isAdmin;
 
   const token = localStorage.getItem('token');
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
   
   useEffect(() => {
     const fetchCart = async () => {
