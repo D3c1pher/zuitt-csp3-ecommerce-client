@@ -1,6 +1,6 @@
 /* ===== Dependencies and Modules ===== */
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { UserProvider } from './UserContext';
 /* ===== Components ===== */
@@ -24,6 +24,7 @@ import AddProduct from './pages/AddProduct';
 import Dashboard from './pages/Dashboard';
 import EditProduct from './pages/EditProduct';
 /* ===== Pages (ERROR) ===== */
+import Unauthorized from './pages/error-pages/Unauthorized';
 import NotFound from './pages/error-pages/NotFound';
 import Forbidden from './pages/error-pages/Forbidden';
 /* ===== Styling ===== */
@@ -32,7 +33,6 @@ import './App.scss';
 /* ===== Animation ===== */
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
 
 /* ===== App ===== */
 export default function App() {
@@ -57,7 +57,7 @@ export default function App() {
       delay: 0,
       duration: 400,
       easing: 'ease',
-      once: true,
+      once: false,
       mirror: false,
       anchorPlacement: 'top-bottom',
     });
@@ -98,9 +98,20 @@ export default function App() {
     fetchData();
   }, []);
 
+  const ScrollToTop = () => {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+  };
+
   return (
     <UserProvider value={{ user, setUser, unsetUser }}>
       <Router>
+        <ScrollToTop />
         <AppNavbar />
           <div className="w-full pt-24">
             <ToastContainer
@@ -140,9 +151,10 @@ export default function App() {
               <Route path="/dashboard/product/add" element={<AddProduct />} />
               <Route path="/dashboard/edit-product/:productId" element={<EditProduct />} />
 
-               {/* ERROR PAGES */}
-               <Route path="/*" element={<NotFound />} />
+              {/* ERROR PAGES */}
+              <Route path="/*" element={<NotFound />} />
               <Route path="/403" element={<Forbidden />}/>
+              <Route path="/401" element={<Unauthorized />}/>
             </Routes>
           </div>
         <Footer />

@@ -5,6 +5,8 @@ import { Bars3Icon, XMarkIcon, UserIcon } from '@heroicons/react/24/outline'
 import CartIcon from './CartIcon';
 import UserContext from "../UserContext";
 import LogoImg from '../assets/inspired-weaver-logo-color.png'
+import Promo01 from '../assets/promo-01.jpg'
+import Promo02 from '../assets/promo-02.jpg'
 
 const navigation = {
   categories: [
@@ -15,12 +17,12 @@ const navigation = {
         {
           name: 'New Arrivals',
           href: '/shop',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
+          imageSrc: Promo01,
         },
         {
           name: 'Featured Products',
           href: '/shop',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+          imageSrc: Promo02,
         },
       ],
       sections: [
@@ -69,12 +71,12 @@ const navigation = {
         {
           name: 'New Arrivals',
           href: '/shop',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
+          imageSrc: Promo02,
         },
         {
           name: 'Featured Products',
           href: '/shop',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+          imageSrc: Promo01,
         },
       ],
       sections: [

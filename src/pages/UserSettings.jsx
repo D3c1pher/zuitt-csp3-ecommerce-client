@@ -1,8 +1,89 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 
 export default function UserSettings() {
+  const navigate = useNavigate();
+
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [mobileNo, setMobileNo] = useState('');
+
+  const token = localStorage.getItem('token');
+  const apiUrl = process.env.REACT_APP_API_URL;
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/b3/users/details`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+      
+        if (typeof data.user._id !== "undefined") {
+          setFirstname(data.user.firstname);
+          setLastname(data.user.lastname);
+          setUsername(data.user.username);
+          setEmail(data.user.email);
+          setAddress(data.user.address);
+          setMobileNo(data.user.mobileNo);
+        } else if (data.error === "User not found") {
+          toast.error('User not found');
+          navigate('/401');
+        } else {
+          toast.error('Something went wrong');
+          navigate('/401');
+        }
+      } catch (error) {
+        console.error("Error fetching user details: ", error);
+        navigate('/401');
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const editUserData = async (e) => {
+      e.preventDefault();
+
+      try {
+          const response = await fetch(`${apiUrl}/b3/users/details`, {
+              method: 'PUT',
+              headers: {
+                  "Content-Type": "application/json",
+                  'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify({ 
+                  firstname: firstname,
+                  lastname: lastname,
+                  username: username,
+                  email: email,
+                  address: address,
+                  mobileNo: mobileNo
+              })
+          });
+          const data = await response.json();
+
+          if (response.ok) {
+              toast.success('Profile successfully updated');
+              navigate('/profile');
+          } else {
+              toast.warn(data.message);
+          }
+      } catch (err) {
+          console.error('Error in editing user data: ', err);
+          toast.error('Internal Server Error!');
+      }
+  }
+
   return (
-    <form>
+    <form onSubmit={e => editUserData(e)}>
       <div className="space-y-12 p-20">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7">Profile</h2>
@@ -23,8 +104,10 @@ export default function UserSettings() {
                     name="username"
                     id="username"
                     autoComplete="username"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="norvenC"
+                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 opacity-90"
+                    placeholder="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)} 
                   />
                 </div>
               </div>
@@ -39,8 +122,9 @@ export default function UserSettings() {
                   id="about"
                   name="about"
                   rows={3}
-                  className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   defaultValue={''}
+                  disabled
                 />
               </div>
               <p className="mt-3 text-sm leading-6 text-gray-500">Write a few sentences about yourself.</p>
@@ -99,7 +183,9 @@ export default function UserSettings() {
                   name="first-name"
                   id="first-name"
                   autoComplete="given-name"
-                  className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 px-2 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  value={firstname}
+                  onChange={(e) => setFirstname(e.target.value)} 
                 />
               </div>
             </div>
@@ -114,7 +200,9 @@ export default function UserSettings() {
                   name="last-name"
                   id="last-name"
                   autoComplete="family-name"
-                  className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 px-2 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  value={lastname}
+                  onChange={(e) => setLastname(e.target.value)} 
                 />
               </div>
             </div>
@@ -129,7 +217,9 @@ export default function UserSettings() {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 px-2 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)} 
                 />
               </div>
             </div>
@@ -144,6 +234,7 @@ export default function UserSettings() {
                   name="country"
                   autoComplete="country-name"
                   className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary sm:max-w-xs sm:text-sm sm:leading-6"
+                  disabled
                 >
                   <option>Philippines</option>
                 </select>
@@ -161,6 +252,7 @@ export default function UserSettings() {
                   id="street-address"
                   autoComplete="street-address"
                   className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  disabled
                 />
               </div>
             </div>
@@ -176,6 +268,7 @@ export default function UserSettings() {
                   id="city"
                   autoComplete="address-level2"
                   className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  disabled
                 />
               </div>
             </div>
@@ -191,6 +284,7 @@ export default function UserSettings() {
                   id="region"
                   autoComplete="address-level1"
                   className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  disabled
                 />
               </div>
             </div>
@@ -206,6 +300,24 @@ export default function UserSettings() {
                   id="postal-code"
                   autoComplete="postal-code"
                   className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  disabled
+                />
+              </div>
+            </div>
+
+            <div className="col-span-full">
+              <label htmlFor="full-address" className="block text-sm font-medium leading-6">
+                Full Address
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="full-address"
+                  id="full-address"
+                  autoComplete="full-address"
+                  className="block w-full rounded-md border-0 px-2 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)} 
                 />
               </div>
             </div>
@@ -233,9 +345,9 @@ export default function UserSettings() {
                   </div>
                   <div className="text-sm leading-6">
                     <label htmlFor="comments" className="font-medium">
-                      Comments
+                      Blogs
                     </label>
-                    <p className="text-gray-500">Get notified when someones posts a comment on a posting.</p>
+                    <p className="text-gray-500">Get notified when a new article has been posted.</p>
                   </div>
                 </div>
                 <div className="relative flex gap-x-3">
@@ -249,9 +361,9 @@ export default function UserSettings() {
                   </div>
                   <div className="text-sm leading-6">
                     <label htmlFor="candidates" className="font-medium">
-                      Candidates
+                      Promos
                     </label>
-                    <p className="text-gray-500">Get notified when a candidate applies for a job.</p>
+                    <p className="text-gray-500">Get notified when a new special promo has been released.</p>
                   </div>
                 </div>
                 <div className="relative flex gap-x-3">
@@ -265,9 +377,9 @@ export default function UserSettings() {
                   </div>
                   <div className="text-sm leading-6">
                     <label htmlFor="offers" className="font-medium">
-                      Offers
+                      Collections
                     </label>
-                    <p className="text-gray-500">Get notified when a candidate accepts or rejects an offer.</p>
+                    <p className="text-gray-500">Get notified when a new collection has been released.</p>
                   </div>
                 </div>
               </div>
@@ -316,12 +428,12 @@ export default function UserSettings() {
       </div>
 
       <div className="mx-20 mb-20 mt-6 flex items-center justify-end gap-x-6">
-        <button type="button" className="text-sm font-semibold leading-6 hover:text-primary">
+        <Link to="/" type="button" className="text-lg font-semibold leading-6 hover:text-primary">
           Cancel
-        </button>
+        </Link>
         <button
           type="submit"
-          className="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="rounded-md btn btn-md btn-primary px-5 py-2 text-lg font-semibold text-white shadow-sm hover:text-white hover:btn-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         >
           Save
         </button>

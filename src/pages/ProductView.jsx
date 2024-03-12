@@ -70,7 +70,7 @@ export default function ProductView() {
         
       } catch (err) {
         console.error('Error in fetching products: ', err);
-        toast.error('Internal Server Error');
+        toast.error('Internal Server Error!');
       }
     }
 

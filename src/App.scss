@@ -68,6 +68,12 @@ input[type='number']::-webkit-outer-spin-button {
 	background-blend-mode: multiply;
 }
 
+.texture-v3 {
+	background-image: url(./assets/paper-texture-03.png);
+	background-repeat: repeat; 
+	background-blend-mode: multiply;
+}
+
 .hero-bg {
 	background-image: url(./assets/hero.jpg);
 	background-blend-mode: multiply;

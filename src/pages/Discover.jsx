@@ -1,54 +1,54 @@
+import NorvenPic from '../assets/norven-pp.jpg'
+import ShellyPic from '../assets/shelly-pp.jpg'
+
 // Data PLaceholders
 const posts = [
   {
     id: 1,
-    title: 'Boost your conversion rate',
+    title: '10 Essential Wardrobe Staples for Every Season',
     href: '#',
     description:
       'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
     date: 'Mar 16, 2020',
     datetime: '2020-03-16',
-    category: { title: 'Marketing', href: '#' },
+    category: { title: 'Fashion', href: '#' },
     author: {
-      name: 'Michael Foster',
-      role: 'Co-Founder / CTO',
+      name: 'Norven Caracas',
+      role: 'Fashion Consultant & Designer',
       href: '#',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      imageUrl: NorvenPic,
     },
   },
   {
     id: 2,
-    title: 'Boost your conversion rate',
+    title: 'The Power of Visual Branding: Creating a Memorable Fashion Identity',
     href: '#',
     description:
       'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
     date: 'Mar 16, 2020',
     datetime: '2020-03-16',
-    category: { title: 'Marketing', href: '#' },
+    category: { title: 'Branding', href: '#' },
     author: {
-      name: 'Michael Foster',
-      role: 'Co-Founder / CTO',
+      name: 'Shelly Noval',
+      role: 'Brand & Marketing Manager',
       href: '#',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      imageUrl: ShellyPic,
     },
   },
   {
-    id: 2,
-    title: 'Boost your conversion rate',
+    id: 3,
+    title: 'Mastering the Art of Layering: Tips for Effortless Style',
     href: '#',
     description:
       'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
     date: 'Mar 16, 2020',
     datetime: '2020-03-16',
-    category: { title: 'Marketing', href: '#' },
+    category: { title: 'Fashion', href: '#' },
     author: {
-      name: 'Michael Foster',
-      role: 'Co-Founder / CTO',
+      name: 'Norven Caracas',
+      role: 'Fashion Consultant & Designer',
       href: '#',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      imageUrl: NorvenPic,
     },
   }
 ]

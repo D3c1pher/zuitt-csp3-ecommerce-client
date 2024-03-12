@@ -4,6 +4,7 @@ import CollectionSection from '../components/CollectionSection';
 import PromoSection from '../components/PromoSection';
 import BannerSection from '../components/BannerSection';
 import CountdownSection from '../components/CountdownSection';
+import NewsletterSection from '../components/NewsletterSection';
 
 export default function Home() {
 
@@ -15,6 +16,7 @@ export default function Home() {
       <CountdownSection />
       <CollectionSection />
       <FeaturedSection />
+      <NewsletterSection />
     </div>    
   );
 }
