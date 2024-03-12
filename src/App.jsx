@@ -36,12 +36,61 @@ import 'aos/dist/aos.css';
 
 /* ===== App ===== */
 export default function App() {
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState({
+    access: localStorage.getItem("token"),
+    id: null,
+    isAdmin: null,
+  });
 
   const unsetUser = () => {
     localStorage.clear();
-    setUser(null);
-  }
+    setUser({
+      access: null,
+      id: null,
+      isAdmin: null,
+    });
+  };
+
+  const token = localStorage.getItem('token');
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        if (user.access) {
+          const response = await fetch(`${apiUrl}/users/details`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          if (!response.ok) {
+            throw new Error("Failed to fetch user details");
+          }
+
+          const data = await response.json();
+
+          if (data.user) {
+            setUser({
+              id: data.user._id,
+              isAdmin: data.user.isAdmin,
+              access: user.access,
+            });
+          } else {
+            setUser({
+              id: null,
+              isAdmin: null,
+              access: null,
+            });
+          }
+        }
+      } catch (err) {
+        console.error('Error in fetching user details: ', err);
+        toast.error('Internal Server Error!');
+      }
+    };
+
+    fetchUserDetails();
+  }, [apiUrl, token, user.access]);
 
   useEffect(() => {
     AOS.init({
@@ -61,41 +110,6 @@ export default function App() {
       mirror: false,
       anchorPlacement: 'top-bottom',
     });
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-
-      const token = localStorage.getItem('token');
-      const apiUrl = process.env.REACT_APP_API_BASE_URL;
-
-      try {
-        const response = await fetch(`${apiUrl}/users/details`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        const data = await response.json();
-
-        if (data.user) {
-          setUser({
-            id: data.user._id,
-            isAdmin: data.user.isAdmin
-          });
-        } else {
-          setUser({ 
-            id: null, 
-            isAdmin: null 
-          });
-        }
-
-      } catch (err) {
-        console.error('Error in fetching user details: ', err);
-        toast.error('Internal Server Error!');
-      }
-    };
-
-    fetchData();
   }, []);
 
   const ScrollToTop = () => {

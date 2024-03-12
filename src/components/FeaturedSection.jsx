@@ -1,9 +1,8 @@
-import React, {useEffect, useState,} from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import FeaturedProduct from './FeaturedProduct';
 
 const apiUrl = process.env.REACT_APP_API_BASE_URL;
-const token = localStorage.getItem('token');
 
 export default function FeaturedSection() {
   const [previews, setPreviews] = useState([]);
@@ -11,11 +10,7 @@ export default function FeaturedSection() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${apiUrl}/products/active`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        const response = await fetch(`${apiUrl}/products/active`);
         const data = await response.json();
 
         const numbers = [];
@@ -35,7 +30,10 @@ export default function FeaturedSection() {
           generateRandomNums();
           featured.push(
             <>
-              <FeaturedProduct data={data.products[numbers[i]]} key={data.products[numbers[i]]._id} />
+              <FeaturedProduct 
+                data={data.products[numbers[i]]} 
+                key={data.products[numbers[i]]._id} 
+              />
             </>
           )
         }

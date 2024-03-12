@@ -34,8 +34,6 @@ export default function FeaturedProduct(props) {
       break;
   }
 
-  console.log(categoryName)
-
   return (
     <div 
       key={_id} 

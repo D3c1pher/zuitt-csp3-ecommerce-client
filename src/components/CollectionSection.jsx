@@ -43,6 +43,7 @@ export default function CollectionSection() {
               <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
                 <img
                   src={collection.imageSrc}
+                  alt=""
                   className="h-full w-full object-cover object-center"
                 />
               </div>

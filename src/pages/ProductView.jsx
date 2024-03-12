@@ -75,7 +75,7 @@ export default function ProductView() {
     }
 
     fetchProduct();
-  }, [productId]);
+  }, [apiUrl, productId]);
 
   const handleIncreaseQuantity = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
@@ -123,7 +123,7 @@ export default function ProductView() {
       
         {/* Beeadcrumb */}
         <nav aria-label="Breadcrumb">
-          <ol role="list" className="flex max-w-2xl items-center space-x-2 px-10">
+          <ol className="flex max-w-2xl items-center space-x-2 px-10">
             <li>
               <div className="flex items-center">
                 <a href="/shop" className="mr-2 text-md font-medium">
@@ -159,9 +159,9 @@ export default function ProductView() {
               </div>
             </li>
             <li className="text-md">
-              <a href="#" aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
+              <Link to={`/shop/${productId}`} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
                 {name}
-              </a>
+              </Link>
             </li>
           </ol>
         </nav> 
@@ -241,9 +241,9 @@ export default function ProductView() {
               <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-medium">Size</h3>
-                  <a href="#" className="text-sm font-medium text-primary hover:text-primary/80">
+                  <Link to={`/shop/${productId}`} className="text-sm font-medium text-primary hover:text-primary/80">
                     Size guide
-                  </a>
+                  </Link>
                 </div>
 
                 <RadioGroup value={size} onChange={setSize} className="mt-4">
@@ -372,7 +372,7 @@ export default function ProductView() {
           <div className="mt-10">
             <h3 className="text-sm font-medium">Highlights</h3>
             <div className="mt-4">
-              <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
+              <ul className="list-disc space-y-2 pl-4 text-sm">
                 {product.highlights.map((highlight) => (
                   <li key={highlight}>
                     <span>{highlight}</span>

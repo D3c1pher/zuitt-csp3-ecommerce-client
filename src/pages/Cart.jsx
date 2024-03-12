@@ -50,7 +50,7 @@ export default function Cart() {
     };
 
     fetchCart();
-  }, []);
+  }, [apiUrl, token]);
 
   const removeFromCart = async (productId) => {
     try {

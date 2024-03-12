@@ -31,7 +31,7 @@ export default function UserProfile() {
     }
 
     fetchUserData();
-  }, []);
+  }, [apiUrl, token]);
 
   return (
     <div className="py-10 sm:px-20 my-5 sm:mx-10">

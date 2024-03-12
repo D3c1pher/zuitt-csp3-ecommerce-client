@@ -46,7 +46,7 @@ export default function EditProduct() {
         }
 
         fetchProductData();
-    }, [productId]);
+    }, [apiUrl, productId]);
 
     const editProduct = async (e) => {
         e.preventDefault();

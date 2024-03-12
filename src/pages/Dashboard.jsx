@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { Link, Navigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import ArchiveProduct from '../components/ArchiveProduct';
@@ -22,7 +22,7 @@ export default function Dashboard() {
 
     const isAdmin = user && user.id !== null && user.isAdmin; 
 
-    const fetchProducts = async () => {
+    const fetchProducts = useCallback(async () => {
         try {
             const response = await fetch(`${apiUrl}/products/all`, {
                 headers: {
@@ -46,9 +46,9 @@ export default function Dashboard() {
             console.error('Error viewing products: ', err);
             toast.error('Internal Server Error!');
         }
-    }
+    }, [apiUrl, token]);
 
-    const fetchUsers = async () => {
+    const fetchUsers = useCallback(async () => {
         try {
             const response = await fetch(`${apiUrl}/users/view-all-users`, {
                 headers: {
@@ -72,9 +72,9 @@ export default function Dashboard() {
             console.error('Error viewing users: ', err);
             toast.error('Internal Server Error!');
         }
-    }
+    }, [apiUrl, token]);
 
-    const fetchOrders = async () => {
+    const fetchOrders = useCallback(async () => {
         try {
             const response = await fetch(`${apiUrl}/orders/all-orders`, {
                 headers: {
@@ -98,13 +98,13 @@ export default function Dashboard() {
             console.error('Error viewing orders: ', err);
             toast.error('Internal Server Error!');
         }
-    }
+    }, [apiUrl, token]);
         
     useEffect(() => {
         fetchProducts();
         fetchUsers();
         fetchOrders();
-    }, []);
+    }, [fetchProducts, fetchUsers, fetchOrders]);
 
     const WorkInProgress = () => {
         toast.info('Work In Progress');
@@ -258,10 +258,10 @@ export default function Dashboard() {
                                                 />
                                             </td>
                                             <td>
-                                                <a onClick={WorkInProgress} className="btn btn-primary hover:btn-secondary">
+                                                <button onClick={WorkInProgress} className="btn btn-primary hover:btn-secondary">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="-ml-0.5 xl:mr-1.5 h-5 w-5 text-white"><path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clipRule="evenodd" /></svg>
                                                     <span className="hidden xl:block text-white">View Info</span>
-                                                </a>
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}

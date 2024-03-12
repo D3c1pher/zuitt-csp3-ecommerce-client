@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Switch } from '@headlessui/react'
 
@@ -136,9 +137,9 @@ export default function Support() {
             </div>
             <Switch.Label className="text-sm leading-6 text-gray-500">
               By selecting this, you agree to our{' '}
-              <a href="#" className="font-semibold text-primary">
+              <Link to="/" className="font-semibold text-primary">
                 privacy&nbsp;policy
-              </a>
+              </Link>
               .
             </Switch.Label>
           </Switch.Group>

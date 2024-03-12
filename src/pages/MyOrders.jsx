@@ -38,7 +38,7 @@ export default function MyOrders() {
     };
 
     fetchOrders();
-  }, []);
+  }, [apiUrl, token]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);

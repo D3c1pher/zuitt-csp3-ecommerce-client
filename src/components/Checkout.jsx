@@ -16,7 +16,6 @@ export default function Checkout() {
           Authorization: `Bearer ${token}`
         }
       });
-      const data = await response.json();
 
       if (!response.ok) {
         toast.info('Cart is empty');

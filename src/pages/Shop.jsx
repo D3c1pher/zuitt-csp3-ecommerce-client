@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useCallback, useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
@@ -51,24 +51,19 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Shop({productsData}) {
+export default function Shop({ productsData }) {
   const [products, setProducts] = useState([]);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
 
-  const token = localStorage.getItem('token');
   const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${apiUrl}/products/active`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        const response = await fetch(`${apiUrl}/products/active`);
         const data = await response.json();
 
         if (!response.ok) {
@@ -89,7 +84,7 @@ export default function Shop({productsData}) {
     }
 
     fetchProducts();
-  }, []);
+  }, [apiUrl]); 
 
   useEffect(() => {
     if (Array.isArray(productsData)) {
@@ -98,24 +93,23 @@ export default function Shop({productsData}) {
     }
   }, [productsData]);
 
-  const handleSearchByName = async () => {
+  const handleSearchByName = useCallback(async () => {
     try {
       const response = await fetch(`${apiUrl}/products/searchByName`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ name: searchQuery }),
       });
-
+  
       if (!response.ok) {
         toast.error('Failed to search products by name');
         throw new Error('Failed to search products by name');
       }
-
+  
       const data = await response.json();
-
+  
       if (Array.isArray(data.products)) {
         setProducts(data.products);
       } else {
@@ -125,20 +119,16 @@ export default function Shop({productsData}) {
       console.error('Error searching products by name: ', err);
       toast.error('Internal Server Error!');
     }
-  }
+  }, [searchQuery, apiUrl]);
 
-  const handleSearchByPrice = async () => {
+  const handleSearchByPrice = useCallback(async () => {
     try {
       let body = {};
-
+  
       if (minPrice || maxPrice) {
         body = { minPrice, maxPrice };
       } else {
-        const response = await fetch(`${apiUrl}/products/active`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        const response = await fetch(`${apiUrl}/products/active`);
   
         if (!response.ok) {
           toast.error('Failed to fetch products');
@@ -153,8 +143,7 @@ export default function Shop({productsData}) {
       const response = await fetch(`${apiUrl}/products/searchByPrice`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(body),
       });
@@ -176,21 +165,21 @@ export default function Shop({productsData}) {
       console.error('Error searching products by price: ', err);
       toast.error('Internal Server Error!');
     }
-  }
+  }, [minPrice, maxPrice, apiUrl]);
 
-  const handleSearch = async () => {
+  const handleSearch = useCallback(async () => {
     if (searchQuery) {
       await handleSearchByName();
     } else if (minPrice || maxPrice) {
       await handleSearchByPrice();
     }
-  };
-
+  }, [searchQuery, minPrice, maxPrice, handleSearchByName, handleSearchByPrice]);
+  
   useEffect(() => {
     handleSearch();
-  }, [minPrice, maxPrice]);
+  }, [handleSearch]);
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = event => {
     if (event.key === 'Enter') {
       handleSearch();
     }
@@ -263,7 +252,7 @@ export default function Shop({productsData}) {
 
                   {/* Filters */}
                   <form className="border-t border-gray-200">
-                    <ul role="list" className="px-2 font-medium">
+                    <ul className="px-2 font-medium">
                       {subCategories.map((category) => (
                         <li key={category.name}>
                           <a href={category.href} className="block px-2 py-3 hover:text-primary">
@@ -440,7 +429,7 @@ export default function Shop({productsData}) {
 
                 <div className="divider divider-primary opacity-60"></div>
       
-                <ul role="list" className="space-y-4 border-b border-gray-200 pb-4 text-sm font-medium">
+                <ul className="space-y-4 border-b border-gray-200 pb-4 text-sm font-medium">
                   {subCategories.map((category) => (
                     <li key={category.name}>
                       <a href={category.href}>{category.name}</a>

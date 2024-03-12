@@ -3,17 +3,11 @@ import { Navigate } from "react-router-dom";
 import UserContext from "../UserContext";
 
 export default function Logout() {
-	const { unsetUser, setUser } = useContext(UserContext);
-
-	unsetUser();
+	const { unsetUser } = useContext(UserContext);
 
 	useEffect(() => {
-		unsetUser();
-		setUser({ 
-			id: null,
-			isAdmin: null
-		});
-	}, [unsetUser, setUser]);
+    unsetUser();
+  }, [unsetUser]);
 
 	return (
 		<Navigate to="/login"/>

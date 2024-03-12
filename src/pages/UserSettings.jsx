@@ -47,7 +47,7 @@ export default function UserSettings() {
     };
 
     fetchUserData();
-  }, []);
+  }, [apiUrl, navigate, token]);
 
   const editUserData = async (e) => {
       e.preventDefault();

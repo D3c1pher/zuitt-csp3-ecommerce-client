@@ -202,7 +202,7 @@ export default function AppNavbar() {
                           {category.featured.map((item) => (
                             <div key={item.name} className="group relative text-sm">
                               <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                <img src={item.imageSrc} className="object-cover object-center" />
+                                <img src={item.imageSrc} alt="" className="object-cover object-center" />
                               </div>
                               <a href={item.href} className="mt-6 block font-medium">
                                 <span className="absolute inset-0 z-10" aria-hidden="true" />
@@ -220,7 +220,6 @@ export default function AppNavbar() {
                               {section.name}
                             </p>
                             <ul
-                              role="list"
                               aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
                               className="mt-6 flex flex-col space-y-6"
                             >
@@ -290,8 +289,9 @@ export default function AppNavbar() {
               <div className="ml-4 flex lg:ml-0">
                 <a href="/">
                   <img
-                    className="h-12 w-auto hover:opacity-90"
                     src={LogoImg}
+                    alt=""
+                    className="h-12 w-auto hover:opacity-90"
                   />
                 </a>
               </div>
@@ -338,6 +338,7 @@ export default function AppNavbar() {
                                           <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                                             <img
                                               src={item.imageSrc}
+                                              alt=""
                                               className="object-cover object-center"
                                             />
                                           </div>
@@ -358,7 +359,6 @@ export default function AppNavbar() {
                                             {section.name}
                                           </p>
                                           <ul
-                                            role="list"
                                             aria-labelledby={`${section.name}-heading`}
                                             className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                           >
