@@ -1,16 +1,58 @@
-Credentials for Admin:
-Email: admin@email.com
-Password: Password123*
+# Capstone 3 Ecommerce React App Overview:
+- - -
+## **Application Name: Ecommerce React-App**
+- - -
+### **Team Members:**
+- - -
+- **Norven Caracas**
+- **Shelly Noval**
+- - -
+### **User Credentials:**
+- - -
+* ####  Admin User:
+| User | Info | 
+| ------ | ------ | 
+| **email:** | admin@email.com |
+| **password:** | Password123* |
+* #### Dummy Customer:
+| User | Info | 
+| ------ | ------ | 
+| **email:** | customer@email.com |
+| **password:** | Password123* |
+- - -
+### **Features:**
+- - -
+#### Features by Norven Caracas:
 
-Credentials for Customer:
-Email: customer@email.com
-Password: Password123*
+User Resources:
+* N/A
 
-# React + Vite
+Product Resources:
+* N/A
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Cart Resources:
+* N/A
 
-Currently, two official plugins are available:
+Order Resources:
+* N/A
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Stretch Goals:
+* N/A
+- - -
+#### Features by Shelly Noval:
+
+User Resources:
+* N/A
+
+Product Resources:
+* N/A
+
+Cart Resources:
+* N/A
+
+Order Resources:
+* N/A
+
+Stretch Goals:
+* N/A
+- - -
