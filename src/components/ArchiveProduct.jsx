@@ -6,7 +6,7 @@ export default function ArchiveProduct({ product, isActive, fetchProducts }) {
 
     const archiveToggle = async (productId) => {
         try {
-            const response = await fetch(`${apiUrl}/b3/products/archive/${productId}`, {
+            const response = await fetch(`${apiUrl}/products/archive/${productId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export default function ArchiveProduct({ product, isActive, fetchProducts }) {
 
     const activateToggle = async (productId) => {
         try {
-            const response = await fetch(`${apiUrl}/b3/products/activate/${productId}`, {
+            const response = await fetch(`${apiUrl}/products/activate/${productId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

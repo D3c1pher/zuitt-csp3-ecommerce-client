@@ -11,7 +11,7 @@ export default function UserProfile() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/b3/users/details`, {
+        const response = await fetch(`${apiUrl}/users/details`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

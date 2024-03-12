@@ -21,7 +21,7 @@ export default function Cart() {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const response = await fetch(`${apiUrl}/b3/cart/`, {
+        const response = await fetch(`${apiUrl}/cart/`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -54,7 +54,7 @@ export default function Cart() {
 
   const removeFromCart = async (productId) => {
     try {
-      const response = await fetch(`${apiUrl}/b3/cart/${productId}/removeFromCart`, {
+      const response = await fetch(`${apiUrl}/cart/${productId}/removeFromCart`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`
@@ -82,7 +82,7 @@ export default function Cart() {
 
   const clearCart = async () => {
     try {
-      const response = await fetch(`${apiUrl}/b3/cart/clearCart`, {
+      const response = await fetch(`${apiUrl}/cart/clearCart`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`

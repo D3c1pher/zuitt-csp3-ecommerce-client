@@ -17,7 +17,7 @@ export default function MyOrders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`${apiUrl}/b3/orders/my-orders`,{
+        const response = await fetch(`${apiUrl}/orders/my-orders`,{
           headers: {
             Authorization: `Bearer ${token}`
           }

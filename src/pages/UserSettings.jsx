@@ -19,7 +19,7 @@ export default function UserSettings() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/b3/users/details`, {
+        const response = await fetch(`${apiUrl}/users/details`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -53,7 +53,7 @@ export default function UserSettings() {
       e.preventDefault();
 
       try {
-          const response = await fetch(`${apiUrl}/b3/users/details`, {
+          const response = await fetch(`${apiUrl}/users/details`, {
               method: 'PUT',
               headers: {
                   "Content-Type": "application/json",

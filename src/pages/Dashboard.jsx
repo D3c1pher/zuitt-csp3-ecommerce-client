@@ -24,7 +24,7 @@ export default function Dashboard() {
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch(`${apiUrl}/b3/products/all`, {
+            const response = await fetch(`${apiUrl}/products/all`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -50,7 +50,7 @@ export default function Dashboard() {
 
     const fetchUsers = async () => {
         try {
-            const response = await fetch(`${apiUrl}/b3/users/view-all-users`, {
+            const response = await fetch(`${apiUrl}/users/view-all-users`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -76,7 +76,7 @@ export default function Dashboard() {
 
     const fetchOrders = async () => {
         try {
-            const response = await fetch(`${apiUrl}/b3/orders/all-orders`, {
+            const response = await fetch(`${apiUrl}/orders/all-orders`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

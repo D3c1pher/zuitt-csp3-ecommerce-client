@@ -22,7 +22,7 @@ export default function AddProduct() {
         e.preventDefault();
         
         try {
-            const response = await fetch(`${apiUrl}}/b3/products/`, {
+            const response = await fetch(`${apiUrl}}/products/`, {
                 method: 'POST',
 			    headers: {
                     "Content-Type": "application/json",

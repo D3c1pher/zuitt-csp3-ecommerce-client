@@ -65,7 +65,7 @@ export default function Shop({productsData}) {
       const apiUrl = process.env.REACT_APP_API_URL;
 
       try {
-        const response = await fetch(`${apiUrl}/b3/products/active`, {
+        const response = await fetch(`${apiUrl}/products/active`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -104,7 +104,7 @@ export default function Shop({productsData}) {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     try {
-      const response = await fetch(`${apiUrl}/b3/products/searchByName`, {
+      const response = await fetch(`${apiUrl}/products/searchByName`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ export default function Shop({productsData}) {
       if (minPrice || maxPrice) {
         body = { minPrice, maxPrice };
       } else {
-        const response = await fetch(`${apiUrl}/b3/products/active`, {
+        const response = await fetch(`${apiUrl}/products/active`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -157,7 +157,7 @@ export default function Shop({productsData}) {
         return;
       }
   
-      const response = await fetch(`${apiUrl}/b3/products/searchByPrice`, {
+      const response = await fetch(`${apiUrl}/products/searchByPrice`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

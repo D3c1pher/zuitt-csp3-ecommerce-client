@@ -22,7 +22,7 @@ export default function EditProduct() {
     useEffect(() => {
         const fetchProductData = async () => {
             try {
-                const response = await fetch(`${apiUrl}/b3/products/${productId}`);
+                const response = await fetch(`${apiUrl}/products/${productId}`);
 
                 if (!response.ok) {
                     toast.error('Failed to fetch product data');
@@ -52,7 +52,7 @@ export default function EditProduct() {
         e.preventDefault();
 
         try {
-            const response = await fetch(`${apiUrl}/b3/products/${productId}`, {
+            const response = await fetch(`${apiUrl}/products/${productId}`, {
                 method: 'PUT',
                 headers: {
                     "Content-Type": "application/json",

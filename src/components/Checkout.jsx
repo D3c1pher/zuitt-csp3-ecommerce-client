@@ -10,7 +10,7 @@ export default function Checkout() {
 
   const handleCheckout = async () => {
     try {
-      const response = await fetch(`${apiUrl}/b3/orders/checkout`, {
+      const response = await fetch(`${apiUrl}/orders/checkout`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`

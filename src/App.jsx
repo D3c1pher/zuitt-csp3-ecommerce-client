@@ -70,7 +70,7 @@ export default function App() {
       const apiUrl = process.env.REACT_APP_API_URL;
 
       try {
-        const response = await fetch(`${apiUrl}/b3/users/details`, {
+        const response = await fetch(`${apiUrl}/users/details`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

@@ -21,7 +21,7 @@ export default function Register() {
         const apiUrl = process.env.REACT_APP_API_URL;
 
         try {
-            const response = await fetch(`${apiUrl}/b3/users/`, {
+            const response = await fetch(`${apiUrl}/users/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

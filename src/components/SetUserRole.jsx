@@ -6,7 +6,7 @@ export default function SetUserRole({user, isAdmin, fetchUsers}) {
 
     const setAsAdminToggle = async (userId) => {
         try {
-            const response = await fetch(`${apiUrl}/b3/users/${userId}/set-as-admin`, {
+            const response = await fetch(`${apiUrl}/users/${userId}/set-as-admin`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export default function SetUserRole({user, isAdmin, fetchUsers}) {
 
     const setAsCustomerToggle = async (userId) => {
         try {
-            const response = await fetch(`${apiUrl}/b3/users/${userId}/set-as-customer`, {
+            const response = await fetch(`${apiUrl}/users/${userId}/set-as-customer`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

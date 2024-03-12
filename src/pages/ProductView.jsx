@@ -59,7 +59,7 @@ export default function ProductView() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`${apiUrl}/b3/products/${productId}`);
+        const response = await fetch(`${apiUrl}/products/${productId}`);
         const data = await response.json();
       
         setName(data.product.name);
@@ -91,7 +91,7 @@ export default function ProductView() {
     e.preventDefault();
     
     try {
-      const response = await fetch(`${apiUrl}/b3/cart/addToCart`, {
+      const response = await fetch(`${apiUrl}/cart/addToCart`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

@@ -19,7 +19,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${apiUrl}/b3/users/login`, {
+      const response = await fetch(`${apiUrl}/users/login`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -63,7 +63,7 @@ export default function Login() {
 
   const retrieveUserDetails = async (token) => {
     try {
-      const response = await fetch(`${apiUrl}/b3/users/details`, {
+      const response = await fetch(`${apiUrl}/users/details`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
