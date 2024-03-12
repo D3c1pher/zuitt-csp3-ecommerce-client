@@ -2,11 +2,11 @@ export default function PromoSection() {
   
   return (
     <div className="texture-v2 bg-base-100 relative overflow-hidden max-h-full py-16">
-      <div className="pb-28 pt-10 sm:pt-28">
+      <div className="pb-28 pt-10 lg:pt-20">
         <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
           <div className="sm:max-w-lg">
             <h1 
-              className="text-4xl font-black tracking-normal sm:text-6xl leading-loose" 
+              className="text-4xl font-black tracking-normal sm:text-7xl" 
               data-aos="fade-up"
               data-aos-duration="1000"
             >
