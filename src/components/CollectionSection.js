@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import CozyPreviewImg from '../assets/preview-cozy.jpg';
 import SummerPreviewImg from '../assets/preview-summer.jpg';
 import TraditionalPreviewImg from '../assets/preview-traditional.jpg';
@@ -8,19 +9,19 @@ const collections = [
     name: 'Summer Glows',
     description: 'Face the summer in bright colors',
     imageSrc: SummerPreviewImg,
-    href: '/shop',
+    to: '/shop',
   },
   {
     name: 'Inspired Tradition',
     description: 'Embrace tradition in style',
     imageSrc: TraditionalPreviewImg,
-    href: '/shop',
+    to: '/shop',
   },
   {
     name: 'Chill N Cozy',
     description: 'Wear a dripping cozy casual',
     imageSrc: CozyPreviewImg,
-    href: '/shop',
+    to: '/shop',
   },
 ]
 
@@ -48,10 +49,10 @@ export default function CollectionSection() {
                 />
               </div>
               <h3 className="mt-6 text-sm text-gray-500">
-                <a href={collection.href}>
+                <Link to={collection.to}>
                   <span className="absolute inset-0" />
                   {collection.name}
-                </a>
+                </Link>
               </h3>
               <p className="text-base font-semibold">{collection.description}</p>
             </div>

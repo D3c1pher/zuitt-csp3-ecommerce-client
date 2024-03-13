@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import NorvenPic from '../assets/norven-pp.jpg'
 import ShellyPic from '../assets/shelly-pp.jpg'
 
@@ -6,48 +7,48 @@ const posts = [
   {
     id: 1,
     title: '10 Essential Wardrobe Staples for Every Season',
-    href: '#',
+    to: '#',
     description:
       'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
     date: 'Mar 16, 2020',
     datetime: '2020-03-16',
-    category: { title: 'Fashion', href: '#' },
+    category: { title: 'Fashion', to: '#' },
     author: {
       name: 'Norven Caracas',
       role: 'Fashion Consultant & Designer',
-      href: '#',
+      to: '#',
       imageUrl: NorvenPic,
     },
   },
   {
     id: 2,
     title: 'The Power of Visual Branding: Creating a Memorable Fashion Identity',
-    href: '#',
+    to: '#',
     description:
       'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
     date: 'Mar 16, 2020',
     datetime: '2020-03-16',
-    category: { title: 'Branding', href: '#' },
+    category: { title: 'Branding', to: '#' },
     author: {
       name: 'Shelly Noval',
       role: 'Brand & Marketing Manager',
-      href: '#',
+      to: '#',
       imageUrl: ShellyPic,
     },
   },
   {
     id: 3,
     title: 'Mastering the Art of Layering: Tips for Effortless Style',
-    href: '#',
+    to: '#',
     description:
       'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
     date: 'Mar 16, 2020',
     datetime: '2020-03-16',
-    category: { title: 'Fashion', href: '#' },
+    category: { title: 'Fashion', to: '#' },
     author: {
       name: 'Norven Caracas',
       role: 'Fashion Consultant & Designer',
-      href: '#',
+      to: '#',
       imageUrl: NorvenPic,
     },
   }
@@ -83,19 +84,19 @@ export default function Discover() {
                 <time dateTime={post.datetime} className="text-gray-500">
                   {post.date}
                 </time>
-                <a
-                  href={post.category.href}
+                <Link
+                  to={post.category.to}
                   className="relative z-10 rounded-full bg-base-100 px-3 py-1.5 font-medium text-gray-500 hover:bg-base-200"
                 >
                   {post.category.title}
-                </a>
+                </Link>
               </div>
               <div className="group relative">
                 <h3 className="mt-3 text-lg font-semibold leading-6 group-hover:text-gray-500">
-                  <a href={post.href}>
+                  <Link to={post.to}>
                     <span className="absolute inset-0" />
                     {post.title}
-                  </a>
+                  </Link>
                 </h3>
                 <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-500">{post.description}</p>
               </div>
@@ -103,10 +104,10 @@ export default function Discover() {
                 <img src={post.author.imageUrl} alt="" className="h-10 w-10 rounded-full bg-gray-50" />
                 <div className="text-sm leading-6">
                   <p className="font-semibold">
-                    <a href={post.author.href}>
+                    <Link to={post.author.to}>
                       <span className="absolute inset-0" />
                       {post.author.name}
-                    </a>
+                    </Link>
                   </p>
                   <p className="text-gray-500">{post.author.role}</p>
                 </div>

@@ -16,7 +16,7 @@ export default function SetUserRole({user, isAdmin, fetchUsers}) {
             const data = await response.json();
 
             if(data.message === "User set to admin successfully") {
-                toast.warn('User is set to admin successfully');
+                toast.success('User is set to admin successfully');
                 fetchUsers();
             } else {
                 toast.error('Something went wrong. Please try again.');
@@ -40,7 +40,7 @@ export default function SetUserRole({user, isAdmin, fetchUsers}) {
             const data = await response.json();
 
             if(data.message === "User set to customer successfully") {
-                toast.warn('User set to customer successfully');
+                toast.success('User set to customer successfully');
                 fetchUsers();
             } else {
                 toast.error('Something went wrong. Please try again.');

@@ -27,7 +27,6 @@ export default function NewsletterSection() {
                 placeholder="Enter your email"
               />
               <button
-                type="submit"
                 className="flex-none rounded-md btn btn-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:btn-secondary hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
                 Subscribe

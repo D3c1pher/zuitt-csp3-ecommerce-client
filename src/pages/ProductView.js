@@ -31,7 +31,7 @@ const product = {
   details:
     'Lorem ipsum dolor sit amet, consectetur adip dolor sit amet dolor sit amet dolor sit amet dolor sit amet dolor sit amet. Lorem ipsum dolor sit amet, consectetur adip dolor sit amet dolor sit amet dolor sit amet dolor sit amet dolor sit amet.',
 }
-const reviews = { href: '#', average: 4, totalCount: 117 }
+const reviews = { to: '#', average: 4, totalCount: 117 }
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -126,9 +126,9 @@ export default function ProductView() {
           <ol className="flex max-w-2xl items-center space-x-2 px-10">
             <li>
               <div className="flex items-center">
-                <a href="/shop" className="mr-2 text-md font-medium">
+                <Link to="/shop" className="mr-2 text-md font-medium">
                   Shop
-                </a>
+                </Link>
                 <svg
                   width={16}
                   height={20}
@@ -143,9 +143,9 @@ export default function ProductView() {
             </li>
             <li>
               <div className="flex items-center">
-                <a href="/shop" className="mr-2 text-md font-medium">
+                <Link to="/shop" className="mr-2 text-md font-medium">
                   {category.name}
-                </a>
+                </Link>
                 <svg
                   width={16}
                   height={20}
@@ -198,9 +198,9 @@ export default function ProductView() {
                   ))}
                 </div>
                 <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <a href={reviews.href} className="ml-3 text-sm font-medium text-primary hover:text-secondary">
+                <Link to={reviews.to} className="ml-3 text-sm font-medium text-primary hover:text-secondary">
                   {reviews.totalCount} reviews
-                </a>
+                </Link>
               </div>
             </div>
 

@@ -167,9 +167,9 @@ export default function Login() {
                 <div>
                   <p className="mt-10 text-center text-sm text-gray-500">
                   Not a member?{' '}
-                    <a href="/register" className="font-semibold leading-6 text-primary hover:text-primary/80">
+                    <Link to="/register" className="font-semibold leading-6 text-primary hover:text-primary/80">
                       Sign up and shop now
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>

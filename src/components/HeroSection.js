@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function HeroSection() {
 
   return (
@@ -25,10 +27,10 @@ export default function HeroSection() {
               data-aos-duration="1000"
             >
               Check out the latest fashion trends.{' '}
-              <a href="/discover" className="font-semibold text-pink-500 hover:opacity-80">
+              <Link to="/discover" className="font-semibold text-pink-500 hover:opacity-80">
                 <span className="absolute inset-0" aria-hidden="true" />
                 Read more <span aria-hidden="true">&rarr;</span>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="text-center">
@@ -44,7 +46,7 @@ export default function HeroSection() {
               data-aos="fade-up"
               data-aos-duration="2000"
             >
-              Fashion is more than just clothing – it's a canvas for creativity, self-expression, and individuality. Our curated collections are crafted to inspire and empower you to weave your own unique style narrative.
+              Fashion is more than just clothing – it's Link canvas for creativity, self-expression, and individuality. Our curated collections are crafted to inspire and empower you to weave your own unique style narrative.
             </p>
             <div 
               className="mt-10 flex items-center justify-center gap-x-6"
@@ -52,15 +54,15 @@ export default function HeroSection() {
               data-aos-duration="2500"
               data-aos-anchor-placement="center-bottom"
             >
-              <a
-                href="/shop"
+              <Link
+                to="/shop"
                 className="btn btn-lg bg-indigo-500 rounded-md px-8 py-2.5 text-lg font-black text-white shadow-sm hover:bg-indigo-500/80 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary drop-shadow-xl tracking-widest"
               >
                 EXPLORE SHOP
-              </a>
-              <a href="/discover" className="text-xl font-black leading-6 text-pink-600 hover:opacity-80 drop-shadow-5xl tracking-widest">
+              </Link>
+              <Link to="/discover" className="text-xl font-black leading-6 text-pink-600 hover:opacity-80 drop-shadow-5xl tracking-widest">
                 Learn more <span aria-hidden="true">→</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

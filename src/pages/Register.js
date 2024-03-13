@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import LogoImgColor from '../assets/inspired-weaver-logo-color.png';
 
@@ -92,9 +92,9 @@ export default function Register() {
                     {/* Already have an account */}
                     <p className="mt-2 text-sm">
                         Already have an account?
-                        <a className="ml-1 text-secondary decoration-2 hover:underline font-medium" href="/login">
+                        <Link to="/login" className="ml-1 text-secondary decoration-2 hover:underline font-medium">
                             Sign in here
-                        </a>
+                        </Link>
                     </p>
                 </div>
 
@@ -246,10 +246,10 @@ export default function Register() {
                         {/* Sign up Button */}
                         <div className="flex justify-between">
                             <button
-                            type="submit"
-                            className="btn btn-primary flex w-full justify-center rounded-md px-3 py-1.5 mt-5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" 
+                                type="submit"
+                                className="btn btn-primary flex w-full justify-center rounded-md px-3 py-1.5 mt-5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" 
                             >
-                            Sign up
+                                Sign up
                             </button>
                         </div>
                         

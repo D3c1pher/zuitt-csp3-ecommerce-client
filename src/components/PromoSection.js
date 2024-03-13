@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function PromoSection() {
   
   return (
@@ -17,7 +19,7 @@ export default function PromoSection() {
               data-aos="fade-up"
               data-aos-duration="1500"
             >
-              A refreshing look into our most casual style collection that will surely give you a feel of a warm embrace a breathe of fresh air.
+              A refreshing look into our most casual style collection that will surely give you a feel of a warm embrace and a breathe of fresh air.
             </p>
           </div>
           <div>
@@ -95,14 +97,14 @@ export default function PromoSection() {
                 </div>
               </div>
 
-              <a
-                href="/shop"
+              <Link
+                to="/shop"
                 className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-5 text-center font-medium text-white hover:bg-indigo-700 tracking-wide"
                 data-aos="fade-up"
                 data-aos-duration="2000"
               >
                 Shop Collection
-              </a>
+              </Link>
             </div>
           </div>
         </div>

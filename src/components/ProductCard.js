@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { StarIcon } from '@heroicons/react/20/solid'
 
 // Data Placeholders
-const reviews = { href: '#', average: 4, totalCount: 117 }
+const reviews = { to: '#', average: 4, totalCount: 117 }
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -40,9 +40,9 @@ export default function ProductCard({ productsProp }) {
                   />
                 ))}
               </div>
-              <a href={reviews.href} className="ml-3 text-sm font-medium text-primary hover:text-secondary">
+              <Link to={reviews.to} className="ml-3 text-sm font-medium text-primary hover:text-secondary">
                 {reviews.totalCount} reviews
-              </a>
+              </Link>
             </div>
           </div>
 

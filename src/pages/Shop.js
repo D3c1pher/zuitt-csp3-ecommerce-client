@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
@@ -7,17 +8,17 @@ import ProductCard from '../components/ProductCard';
 
 // Data Placeholders
 const sortOptions = [
-  { name: 'Most Popular', href: '#', current: true },
-  { name: 'Best Rating', href: '#', current: false },
-  { name: 'Newest', href: '#', current: false },
-  { name: 'Price: Low to High', href: '#', current: false },
-  { name: 'Price: High to Low', href: '#', current: false },
+  { name: 'Most Popular', to: '#', current: true },
+  { name: 'Best Rating', to: '#', current: false },
+  { name: 'Newest', to: '#', current: false },
+  { name: 'Price: Low to High', to: '#', current: false },
+  { name: 'Price: High to Low', to: '#', current: false },
 ]
 const subCategories = [
-  { name: 'New Arrivals', href: '#' },
-  { name: 'Featured Products', href: '#' },
-  { name: 'On Sale Products', href: '#' },
-  { name: 'Special Promos', href: '#' },
+  { name: 'New Arrivals', to: '#' },
+  { name: 'Featured Products', to: '#' },
+  { name: 'On Sale Products', to: '#' },
+  { name: 'Special Promos', to: '#' },
 ]
 const filters = [
   {
@@ -255,9 +256,9 @@ export default function Shop({ productsData }) {
                     <ul className="px-2 font-medium">
                       {subCategories.map((category) => (
                         <li key={category.name}>
-                          <a href={category.href} className="block px-2 py-3 hover:text-primary">
+                          <Link to={category.to} className="block px-2 py-3 hover:text-primary">
                             {category.name}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -367,8 +368,8 @@ export default function Shop({ productsData }) {
                       {sortOptions.map((option) => (
                         <Menu.Item key={option.name}>
                           {({ active }) => (
-                            <a
-                              href={option.href}
+                            <Link
+                              to={option.to}
                               className={classNames(
                                 option.current ? 'font-medium' : 'text-gray-500',
                                 active ? 'bg-gray-100' : '',
@@ -376,7 +377,7 @@ export default function Shop({ productsData }) {
                               )}
                             >
                               {option.name}
-                            </a>
+                            </Link>
                           )}
                         </Menu.Item>
                       ))}
@@ -432,7 +433,7 @@ export default function Shop({ productsData }) {
                 <ul className="space-y-4 border-b border-gray-200 pb-4 text-sm font-medium">
                   {subCategories.map((category) => (
                     <li key={category.name}>
-                      <a href={category.href}>{category.name}</a>
+                      <Link to={category.to}>{category.name}</Link>
                     </li>
                   ))}
                 </ul>

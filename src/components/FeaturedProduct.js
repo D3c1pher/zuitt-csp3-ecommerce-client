@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Placeholder01 from '../assets/placeholder-01.jpg'
 import Placeholder02 from '../assets/placeholder-02.jpg'
 import Placeholder03 from '../assets/placeholder-03.jpg'
@@ -51,10 +52,10 @@ export default function FeaturedProduct(props) {
       <div className="mt-4 flex justify-between">
         <div>
           <h3 className="text-sm text-gray-500">
-            <a href={`/products/${_id}`}>
+            <Link to={`/products/${_id}`}>
               <span aria-hidden="true" className="absolute inset-0" />
               {name}
-            </a>
+            </Link>
           </h3>
           <p className="mt-1 text-sm">{color}</p>
         </div>

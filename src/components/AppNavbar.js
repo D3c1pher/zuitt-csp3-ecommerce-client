@@ -16,12 +16,12 @@ const navigation = {
       featured: [
         {
           name: 'New Arrivals',
-          href: '/shop',
+          to: '/shop',
           imageSrc: Promo01,
         },
         {
           name: 'Featured Products',
-          href: '/shop',
+          to: '/shop',
           imageSrc: Promo02,
         },
       ],
@@ -30,36 +30,36 @@ const navigation = {
           id: 'clothing',
           name: 'Clothing',
           items: [
-            { name: 'Tops', href: '/shop' },
-            { name: 'Shirts', href: '/shop' },
-            { name: 'Sweaters', href: '/shop' },
-            { name: 'Jackets', href: '/shop' },
-            { name: 'Bottoms', href: '/shop' },
-            { name: 'Pants', href: '/shop' },
-            { name: 'Shorts', href: '/shop' },
-            { name: 'Browse All', href: '/shop' },
+            { name: 'Tops', to: '/shop' },
+            { name: 'Shirts', to: '/shop' },
+            { name: 'Sweaters', to: '/shop' },
+            { name: 'Jackets', to: '/shop' },
+            { name: 'Bottoms', to: '/shop' },
+            { name: 'Pants', to: '/shop' },
+            { name: 'Shorts', to: '/shop' },
+            { name: 'Browse All', to: '/shop' },
           ],
         },
         {
           id: 'accessories',
           name: 'Accessories',
           items: [
-            { name: 'Watches', href: '/shop' },
-            { name: 'Bags', href: '/shop' },
-            { name: 'Hats', href: '/shop' },
-            { name: 'Gloves', href: '/shop' },
-            { name: 'Socks', href: '/shop' },
-            { name: 'Belts', href: '/shop' },
+            { name: 'Watches', to: '/shop' },
+            { name: 'Bags', to: '/shop' },
+            { name: 'Hats', to: '/shop' },
+            { name: 'Gloves', to: '/shop' },
+            { name: 'Socks', to: '/shop' },
+            { name: 'Belts', to: '/shop' },
           ],
         },
         {
           id: 'others',
           name: 'Others',
           items: [
-            { name: 'Featured', href: '/shop' },
-            { name: 'Collections', href: '/shop' },
-            { name: 'On Sale', href: '/shop' },
-            { name: 'Promos', href: '/shop' },
+            { name: 'Featured', to: '/shop' },
+            { name: 'Collections', to: '/shop' },
+            { name: 'On Sale', to: '/shop' },
+            { name: 'Promos', to: '/shop' },
           ],
         },
       ],
@@ -70,12 +70,12 @@ const navigation = {
       featured: [
         {
           name: 'New Arrivals',
-          href: '/shop',
+          to: '/shop',
           imageSrc: Promo02,
         },
         {
           name: 'Featured Products',
-          href: '/shop',
+          to: '/shop',
           imageSrc: Promo01,
         },
       ],
@@ -84,44 +84,44 @@ const navigation = {
           id: 'clothing',
           name: 'Clothing',
           items: [
-            { name: 'Tops', href: '/shop' },
-            { name: 'Shirts', href: '/shop' },
-            { name: 'Sweaters', href: '/shop' },
-            { name: 'Jackets', href: '/shop' },
-            { name: 'Bottoms', href: '/shop' },
-            { name: 'Pants', href: '/shop' },
-            { name: 'Shorts', href: '/shop' },
-            { name: 'Browse All', href: '/shop' },
+            { name: 'Tops', to: '/shop' },
+            { name: 'Shirts', to: '/shop' },
+            { name: 'Sweaters', to: '/shop' },
+            { name: 'Jackets', to: '/shop' },
+            { name: 'Bottoms', to: '/shop' },
+            { name: 'Pants', to: '/shop' },
+            { name: 'Shorts', to: '/shop' },
+            { name: 'Browse All', to: '/shop' },
           ],
         },
         {
           id: 'accessories',
           name: 'Accessories',
           items: [
-            { name: 'Watches', href: '/shop' },
-            { name: 'Bags', href: '/shop' },
-            { name: 'Hats', href: '/shop' },
-            { name: 'Gloves', href: '/shop' },
-            { name: 'Socks', href: '/shop' },
-            { name: 'Belts', href: '/shop' },
+            { name: 'Watches', to: '/shop' },
+            { name: 'Bags', to: '/shop' },
+            { name: 'Hats', to: '/shop' },
+            { name: 'Gloves', to: '/shop' },
+            { name: 'Socks', to: '/shop' },
+            { name: 'Belts', to: '/shop' },
           ],
         },
         {
           id: 'others',
           name: 'Others',
           items: [
-            { name: 'Featured', href: '/shop' },
-            { name: 'Collections', href: '/shop' },
-            { name: 'On Sale', href: '/shop' },
-            { name: 'Promos', href: '/shop' },
+            { name: 'Featured', to: '/shop' },
+            { name: 'Collections', to: '/shop' },
+            { name: 'On Sale', to: '/shop' },
+            { name: 'Promos', to: '/shop' },
           ],
         },
       ],
     },
   ],
   pages: [
-    { name: 'Discover', href: '/discover' },
-    { name: 'Support', href: '/support' },
+    { name: 'Discover', to: '/discover' },
+    { name: 'Support', to: '/support' },
   ],
 }
 
@@ -204,10 +204,10 @@ export default function AppNavbar() {
                               <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                                 <img src={item.imageSrc} alt="" className="object-cover object-center" />
                               </div>
-                              <a href={item.href} className="mt-6 block font-medium">
+                              <Link to={item.to} className="mt-6 block font-medium">
                                 <span className="absolute inset-0 z-10" aria-hidden="true" />
                                 {item.name}
-                              </a>
+                              </Link>
                               <p aria-hidden="true" className="mt-1">
                                 Shop now
                               </p>
@@ -225,9 +225,9 @@ export default function AppNavbar() {
                             >
                               {section.items.map((item) => (
                                 <li key={item.name} className="flow-root">
-                                  <a href={item.href} className="-m-2 block p-2 text-content opacity-80 hover:text-primary">
+                                  <Link to={item.to} className="-m-2 block p-2 text-content opacity-80 hover:text-primary">
                                     {item.name}
-                                  </a>
+                                  </Link>
                                 </li>
                               ))}
                             </ul>
@@ -241,9 +241,9 @@ export default function AppNavbar() {
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   {navigation.pages.map((page) => (
                     <div key={page.name} className="flow-root hover:text-primary">
-                      <a href={page.href} className="-m-2 block p-2 font-medium">
+                      <Link to={page.to} className="-m-2 block p-2 font-medium">
                         {page.name}
-                      </a>
+                      </Link>
                     </div>
                   ))}
                 </div>
@@ -251,14 +251,14 @@ export default function AppNavbar() {
                 { !isAuthenticated && (
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
-                    <a href="/login" className="-m-2 block p-2 font-medium hover:text-primary">
+                    <Link to="/login" className="-m-2 block p-2 font-medium hover:text-primary">
                       Sign in
-                    </a>
+                    </Link>
                   </div>
                   <div className="flow-root">
-                    <a href="/register" className="-m-2 block p-2 font-medium hover:text-primary">
+                    <Link to="/register" className="-m-2 block p-2 font-medium hover:text-primary">
                       Sign up
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 )}
@@ -287,13 +287,13 @@ export default function AppNavbar() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <a href="/">
+                <Link to="/">
                   <img
                     src={LogoImg}
                     alt=""
                     className="h-12 w-auto hover:opacity-90"
                   />
-                </a>
+                </Link>
               </div>
 
               {/* Flyout menus */}
@@ -342,10 +342,10 @@ export default function AppNavbar() {
                                               className="object-cover object-center"
                                             />
                                           </div>
-                                          <a href={item.href} className="mt-6 block font-medium">
+                                          <Link to={item.to} className="mt-6 block font-medium">
                                             <span className="absolute inset-0 z-10" aria-hidden="true" />
                                             {item.name}
-                                          </a>
+                                          </Link>
                                           <p aria-hidden="true" className="mt-1">
                                             Shop now
                                           </p>
@@ -364,9 +364,9 @@ export default function AppNavbar() {
                                           >
                                             {section.items.map((item) => (
                                               <li key={item.name} className="flex">
-                                                <a href={item.href} className="hover:text-primary">
+                                                <Link to={item.to} className="hover:text-primary">
                                                   {item.name}
-                                                </a>
+                                                </Link>
                                               </li>
                                             ))}
                                           </ul>
@@ -384,13 +384,13 @@ export default function AppNavbar() {
                   ))}
 
                   {navigation.pages.map((page) => (
-                    <a
+                    <Link
                       key={page.name}
-                      href={page.href}
+                      to={page.to}
                       className="flex items-center text-sm font-medium hover:text-primary"
                     >
                       {page.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </Popover.Group>
@@ -399,13 +399,13 @@ export default function AppNavbar() {
                 
                 { !isAuthenticated && (
                   <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    <a href="/login" className="text-sm font-medium hover:text-primary">
+                    <Link to="/login" className="text-sm font-medium hover:text-primary">
                       Sign in
-                    </a>
+                    </Link>
                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                    <a href="/register" className="text-sm font-medium hover:text-primary">
+                    <Link to="/register" className="text-sm font-medium hover:text-primary">
                       Sign up
-                    </a>
+                    </Link>
                   </div>
                 )}
 

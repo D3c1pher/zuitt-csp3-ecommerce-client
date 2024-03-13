@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 
@@ -290,9 +290,9 @@ export default function EditProduct() {
             </div>
 
             <div className="mt-0 flex items-center justify-end gap-x-6 px-20 pb-20">
-                <button href="/dashboard" type="button" className="text-sm font-semibold leading-6 hover:text-primary">
+                <Link to="/dashboard" type="button" className="text-sm font-semibold leading-6 hover:text-primary">
                 Cancel
-                </button>
+                </Link>
                 <button
                     type="submit"
                     className="btn btn-primary rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
