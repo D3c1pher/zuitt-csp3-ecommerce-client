@@ -24,9 +24,9 @@ import AddProduct from './pages/AddProduct';
 import Dashboard from './pages/Dashboard';
 import EditProduct from './pages/EditProduct';
 /* ===== Pages (ERROR) ===== */
-import Unauthorized from './pages/error-pages/Unauthorized';
-import NotFound from './pages/error-pages/NotFound';
-import Forbidden from './pages/error-pages/Forbidden';
+import Unauthorized from './pages/Unauthorized';
+import NotFound from './pages/NotFound';
+import Forbidden from './pages/Forbidden';
 /* ===== Styling ===== */
 import 'react-toastify/dist/ReactToastify.css';
 import './App.scss';
