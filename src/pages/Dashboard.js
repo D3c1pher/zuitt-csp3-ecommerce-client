@@ -112,7 +112,7 @@ export default function Dashboard() {
 
     const DashboardTabs = ({ selectedTab, handleTabChange }) => {
         return (
-            <nav className="w-full h-full bg-neutral text-white pt-5 pb-0">
+            <nav className="w-full h-full bg-neutral text-white pt-12 pb-0">
                 <div className="container mx-auto flex text-center justify-evenly">
                     <label className="block cursor-pointer w-full">
                         <input

@@ -1,7 +1,7 @@
 /* ===== Dependencies and Modules ===== */
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { UserProvider } from './UserContext';
 /* ===== Components ===== */
 import AppNavbar from './components/AppNavbar';
@@ -63,10 +63,6 @@ export default function App() {
               Authorization: `Bearer ${token}`
             }
           });
-          if (!response.ok) {
-            throw new Error("Failed to fetch user details");
-          }
-
           const data = await response.json();
 
           if (data.user) {
@@ -85,7 +81,6 @@ export default function App() {
         }
       } catch (err) {
         console.error('Error in fetching user details: ', err);
-        toast.error('Internal Server Error!');
       }
     };
 
@@ -127,7 +122,7 @@ export default function App() {
       <Router>
         <ScrollToTop />
         <AppNavbar />
-          <div className="w-full pt-24">
+          <div className="w-full pt-20">
             <ToastContainer
               position="top-right"
               autoClose={2000}
