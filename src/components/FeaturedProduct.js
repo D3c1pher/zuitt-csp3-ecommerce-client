@@ -7,8 +7,8 @@ import Placeholder04 from '../assets/placeholder-04.jpg'
 
 export default function FeaturedProduct(props) {
   const { data } = props;
-  const { _id, name, price, category } = data;
-  const { name: categoryName } = category;
+  const { _id, name, price, category } = data || {};
+  const categoryName = category?.name || "";
 
   let imageSrc, color;
 

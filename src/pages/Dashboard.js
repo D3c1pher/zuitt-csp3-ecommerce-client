@@ -83,6 +83,8 @@ export default function Dashboard() {
             });
             const data = await response.json();
 
+            console.log(response);
+
             if (!response.ok) {
                 toast.error('Failed to fetch orders');
                 throw new Error('Failed to fetch orders');

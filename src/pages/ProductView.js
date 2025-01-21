@@ -38,18 +38,18 @@ function classNames(...classes) {
 }
 
 export default function ProductView() {
-  const { user } =  useContext(UserContext);
-	const { productId } = useParams();
+  const { user } = useContext(UserContext);
+  const { productId } = useParams();
   const navigate = useNavigate();
 
-	const [name, setName] = useState('');
-	const [description, setDescription] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
-	const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  const [color, setColor] = useState(product.colors[0])
-  const [size, setSize] = useState(product.sizes[2])
+  const [color, setColor] = useState(product.colors[0]);
+  const [size, setSize] = useState(product.sizes[2]);
 
   const isAuthenticated = user && user.id !== null;
 
@@ -61,18 +61,18 @@ export default function ProductView() {
       try {
         const response = await fetch(`${apiUrl}/products/${productId}`);
         const data = await response.json();
-      
+
         setName(data.product.name);
         setDescription(data.product.description);
         setCategory(data.product.category);
         setPrice(data.product.price);
         setQuantity(data.product.quantity);
-        
+
       } catch (err) {
         console.error('Error in fetching products: ', err);
         toast.error('Internal Server Error!');
       }
-    }
+    };
 
     fetchProduct();
   }, [apiUrl, productId]);
@@ -89,7 +89,7 @@ export default function ProductView() {
 
   const addToCart = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await fetch(`${apiUrl}/cart/addToCart`, {
         method: 'POST',
@@ -97,7 +97,7 @@ export default function ProductView() {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           productId: productId,
           quantity: quantity
         })
@@ -120,8 +120,8 @@ export default function ProductView() {
   return (
     <div className="bg-base-100 pt-6 pb-8 mt-5">
       <div className="container">
-      
-        {/* Beeadcrumb */}
+
+        {/* Breadcrumb */}
         <nav aria-label="Breadcrumb">
           <ol className="flex max-w-2xl items-center space-x-2 px-10">
             <li>
@@ -144,7 +144,7 @@ export default function ProductView() {
             <li>
               <div className="flex items-center">
                 <Link to="/shop" className="mr-2 text-md font-medium">
-                  {category.name}
+                  {category?.name || 'Loading...'}
                 </Link>
                 <svg
                   width={16}
@@ -164,7 +164,7 @@ export default function ProductView() {
               </Link>
             </li>
           </ol>
-        </nav> 
+        </nav>
 
         <div className="divider divider-primary py-2 px-10"></div>
 
@@ -368,13 +368,13 @@ export default function ProductView() {
             </div>
           </div>
 
-          {/* Highlights */}
-          <div className="mt-10">
-            <h3 className="text-sm font-medium">Highlights</h3>
+            {/* Highlights */}
+            <div className="mt-10">
+              <h3 className="text-sm font-medium">Highlights</h3>
             <div className="mt-4">
               <ul className="list-disc space-y-2 pl-4 text-sm">
-                {product.highlights.map((highlight) => (
-                  <li key={highlight}>
+                {product.highlights.map((highlight, index) => (
+                  <li key={index}>
                     <span>{highlight}</span>
                   </li>
                 ))}
